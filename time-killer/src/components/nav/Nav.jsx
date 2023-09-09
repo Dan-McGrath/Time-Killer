@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Nav = ({ clickLinkHandler }) => {
   return (
@@ -24,6 +25,10 @@ const Nav = ({ clickLinkHandler }) => {
       </nav>
     </>
   );
+};
+
+Nav.propTypes = {
+  clickLinkHandler: PropTypes.func,
 };
 
 export default Nav;

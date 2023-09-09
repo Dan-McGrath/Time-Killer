@@ -1,45 +1,63 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Nav from "../nav/Nav";
 
-const Header = ({ isMobile }) => {
+const Header = () => {
   const [navIsOpen, setNavIsOpen] = useState(false);
+  const [windowDimension, setWindowDimension] = useState(null);
 
-  //   const navHandler = () => {
-  //     setNavIsOpen(!navIsOpen);
-  //   };
+  useEffect(() => {
+    setWindowDimension(window.innerWidth);
+  }, []);
 
-  //   const clickLinkHandler = () => {
-  //     setNavIsOpen(false);
-  //   };
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowDimension(window.innerWidth);
+    };
 
-  return (
-    <>
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = windowDimension <= 640;
+
+  const navHandler = () => {
+    setNavIsOpen(!navIsOpen);
+  };
+
+  const clickLinkHandler = () => {
+    setNavIsOpen(false);
+  };
+
+  return isMobile ? (
+    navIsOpen ? (
+      <header>
+        <Nav clickLinkHandler={clickLinkHandler} />
+        <div className="hamburger">
+          <div className="close-icon" onClick={navHandler}>
+            <p className="sr-only">Close</p>
+            <i className="fa-solid fa-x"></i>
+          </div>
+        </div>
+      </header>
+    ) : (
       <header>
         <div className="logo">
           <img src="" alt="logo" />
         </div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="Blackjack">Blackjack</Link>
-            </li>
-            <li>
-              <Link to="Memory">Memory</Link>
-            </li>
-            <li>
-              <Link to="Tic-Tac-Toe">Tic Tac Toe</Link>
-            </li>
-            <li>
-              <Link to="Battleship">Battleship</Link>
-            </li>
-          </ul>
-        </nav>
+        <div className="hamburger">
+          <div className="open-icon" onClick={navHandler}>
+            <p className="sr-only">Menu</p>
+            <i className="fa-solid fa-bars"></i>
+          </div>
+        </div>
       </header>
-    </>
+    )
+  ) : (
+    <header>
+      <img src="" alt="logo" />
+      <Nav />
+    </header>
   );
 };
 

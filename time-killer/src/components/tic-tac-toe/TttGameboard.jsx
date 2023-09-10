@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import Square from "./Square";
+import { checkWinner, checkDraw } from "./tttLogic/winConditions";
 
 const TttGameboard = () => {
   const [gameboard, setGameboard] = useState([]);
-  const [player1Moves, setPlayer1Moves] = useState([]);
-  const [player2Moves, setPlayer2Moves] = useState([]);
+
+  const player1Moves = useRef([]);
+  const player2Moves = useRef([]);
 
   const player1 = useRef({
     value: "X",
@@ -41,11 +43,12 @@ const TttGameboard = () => {
     if (gameboard[index].occupied) {
       return;
     }
+
     e.currentTarget.textContent = currentPlayer.current.value;
 
     currentPlayer.current === player1.current
-      ? setPlayer1Moves([...player1Moves, index])
-      : setPlayer2Moves([...player2Moves, index]);
+      ? player1Moves.current.push(index)
+      : player2Moves.current.push(index);
 
     setGameboard([...gameboard], (gameboard[index].occupied = true));
     setGameboard(
@@ -53,9 +56,19 @@ const TttGameboard = () => {
       (gameboard[index].occupiedBy = currentPlayer.current),
     );
 
-    console.log(currentPlayer.current);
-    console.log(player1.current);
+    let result =
+      currentPlayer.current === player1.current
+        ? checkWinner(player1Moves.current)
+        : checkWinner(player2Moves.current);
 
+    let draw = checkDraw(gameboard);
+
+    if (result) {
+      return console.log("winner");
+    }
+    if (draw) {
+      return console.log("draw");
+    }
     changeCurrentPlayer();
   };
 

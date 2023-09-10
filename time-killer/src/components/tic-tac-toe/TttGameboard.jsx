@@ -8,6 +8,8 @@ const TttGameboard = () => {
   const player1Moves = useRef([]);
   const player2Moves = useRef([]);
 
+  const gameResult = useRef(null);
+
   const player1 = useRef({
     value: "X",
   });
@@ -64,10 +66,10 @@ const TttGameboard = () => {
     let draw = checkDraw(gameboard);
 
     if (result) {
-      return console.log("winner");
+      return (gameResult.current = currentPlayer.current);
     }
     if (draw) {
-      return console.log("draw");
+      return (gameResult.current = true);
     }
     changeCurrentPlayer();
   };
@@ -79,7 +81,30 @@ const TttGameboard = () => {
       clickHandler={clickSquareHandler}
     />
   ));
-  return <div className="ttt-gameboard">{mapGameboard}</div>;
+  if (
+    gameResult.current === player1.current ||
+    gameResult.current === player2.current
+  ) {
+    return (
+      <>
+        <div className="ttt-gameboard">{mapGameboard}</div>
+        <div className="message">
+          <p>Winner</p>
+        </div>
+      </>
+    );
+  } else if (gameResult.current === true) {
+    return (
+      <>
+        <div className="ttt-gameboard">{mapGameboard}</div>
+        <div className="message">
+          <p>Draw</p>
+        </div>
+      </>
+    );
+  } else {
+    return <div className="ttt-gameboard">{mapGameboard}</div>;
+  }
 };
 
 export default TttGameboard;

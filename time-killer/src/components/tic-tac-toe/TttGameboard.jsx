@@ -12,12 +12,12 @@ const TttGameboard = () => {
   const player2 = useRef({
     value: "O",
   });
-  const currentPlayer = useRef(player1.current.value);
+  const currentPlayer = useRef(player1.current);
 
   const changeCurrentPlayer = () => {
-    currentPlayer.current === player1.current.value
-      ? (currentPlayer.current = player2.current.value)
-      : (currentPlayer.current = player1.current.value);
+    currentPlayer.current === player1.current
+      ? (currentPlayer.current = player2.current)
+      : (currentPlayer.current = player1.current);
   };
 
   useEffect(() => {
@@ -37,23 +37,26 @@ const TttGameboard = () => {
   }, []);
 
   const clickSquareHandler = (e) => {
-    let index = e.currentTarget.dataset.index;
+    let index = Number(e.currentTarget.dataset.index);
     if (gameboard[index].occupied) {
       return;
     }
-    e.currentTarget.textContent = currentPlayer.current;
+    e.currentTarget.textContent = currentPlayer.current.value;
+
+    currentPlayer.current === player1.current
+      ? setPlayer1Moves([...player1Moves, index])
+      : setPlayer2Moves([...player2Moves, index]);
 
     setGameboard([...gameboard], (gameboard[index].occupied = true));
     setGameboard(
       [...gameboard],
-      (gameboard[index].occupiedBy = currentPlayer.current.current),
+      (gameboard[index].occupiedBy = currentPlayer.current),
     );
 
-    changeCurrentPlayer();
+    console.log(currentPlayer.current);
+    console.log(player1.current);
 
-    currentPlayer.current.current === player1
-      ? setPlayer1Moves([...player1Moves], index)
-      : setPlayer2Moves([...player2Moves], index);
+    changeCurrentPlayer();
   };
 
   const mapGameboard = gameboard.map((ele) => (

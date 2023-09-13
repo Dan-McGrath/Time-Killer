@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Blackjack from "./blackjack/Blackjack";
 import Memory from "./memoryGame/Memory";
-import Ttt from "./tic-tac-toe/TTT";
+import Ttt from "./tic-tac-toe/Ttt";
 import Battleship from "./battleship/Battleship";
 
 const Router = () => {

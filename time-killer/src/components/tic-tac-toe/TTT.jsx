@@ -1,5 +1,5 @@
 import Header from "../header/Header";
-import TttGameboard from "./TttGameboard";
+import GameManager from "./Gamemanager";
 import "../../styles/ttt.scss";
 import "../../styles/reset.scss";
 
@@ -8,7 +8,7 @@ const Ttt = () => {
     <>
       <Header />
       <h1>Tic Tac Toe</h1>
-      <TttGameboard />
+      <GameManager />
     </>
   );
 };

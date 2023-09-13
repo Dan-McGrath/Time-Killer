@@ -31,14 +31,14 @@ const Header = () => {
 
   return isMobile ? (
     navIsOpen ? (
-      <header>
-        <Nav clickLinkHandler={clickLinkHandler} />
+      <header className="nav-mobile">
         <div className="hamburger">
           <div className="close-icon" onClick={navHandler}>
             <p className="sr-only">Close</p>
             <i className="fa-solid fa-x"></i>
           </div>
         </div>
+        <Nav clickLinkHandler={clickLinkHandler} />
       </header>
     ) : (
       <header>

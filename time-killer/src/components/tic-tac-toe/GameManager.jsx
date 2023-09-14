@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import createGameboard from "./tttLogic/createTttGameboard";
-import Monitor from "./monitor/Monitor";
+import Monitor from "./Monitor";
 import Player from "./tttLogic/player";
 import Button from "./Button";
 import Message from "./Message";

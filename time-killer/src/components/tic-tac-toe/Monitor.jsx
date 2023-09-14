@@ -1,5 +1,5 @@
-import TttGameboard from "../TttGameboard";
-import Button from "../Button";
+import TttGameboard from "./TttGameboard";
+import Button from "./Button";
 
 const Monitor = ({
   gameboard,

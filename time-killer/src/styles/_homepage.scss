@@ -1,12 +1,22 @@
 .title {
     text-align: center;
     margin: 1em auto;
+
+    h1 {
+       font-size: 2rem;
+       font-weight: bold; 
+    }
+
+    p {
+        font-size: 1.5rem;
+    }
+    
 }
 
 .hero {
     margin: 1em auto;
     padding: 1em;
-
+    max-width: 1000px;
     .game-selections {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -45,7 +55,8 @@ form {
     grid-template-rows: 1fr 1fr 1fr;
     justify-items: center;
     gap: 1em;
-
+    max-width: 1000px;
+    margin: 0 auto;
     .form-name {
         grid-column: 1 / span 2;
         grid-row: 1;
@@ -67,3 +78,9 @@ form {
     }
 }
 
+.game {
+    font-size: 1.5rem;
+    border: black solid 1px;
+    padding: 1em;
+    border-radius: 50%;
+}

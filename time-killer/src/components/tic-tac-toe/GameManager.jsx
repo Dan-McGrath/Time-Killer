@@ -82,11 +82,11 @@ const GameManager = () => {
     let draw = checkDraw(gameboard);
 
     if (gameResult.current) {
-      setActiveHandler(false);
+      setActiveGame(false);
       return (message.current = `${currentPlayer.current.name} Wins!`);
     }
     if (draw) {
-      setActiveHandler(false);
+      setActiveGame(false);
       return (message.current = "Draw");
     }
     changeCurrentPlayer();

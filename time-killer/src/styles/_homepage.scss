@@ -2,3 +2,68 @@
     text-align: center;
     margin: 1em auto;
 }
+
+.hero {
+    margin: 1em auto;
+    padding: 1em;
+
+    .game-selections {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 1em;
+        justify-items: center;
+        padding: 1em;
+
+        .blackjack {
+            grid-row: 1;
+            grid-column: 1;
+        }
+
+        .memory {
+            grid-row: 1;
+            grid-column: 2;
+        }
+
+        .tic-tac-toe {
+            grid-column: 1;
+            grid-row: 2;
+
+        }
+
+        .battleship {
+            grid-column: 2;
+            grid-row: 2;
+        }
+    }
+}
+
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
+    gap: 1em;
+
+    .form-name {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+    }
+    .form-email {
+        grid-column: 3 / span 2;
+        grid-row: 1;
+    }
+    .form-message {
+        display: flex;
+        align-items: center;
+        grid-column: 1 / span 4;
+        grid-row: 2;
+    }
+        
+    .btn-submit {
+        grid-column: 2 / span 2;
+        grid-row: 3;
+    }
+}
+

@@ -11,18 +11,21 @@ const Hero = () => {
         </p>
       </div>
       <div className="game-selections">
-        <div className="blackjack">
-          <Link to="/Blackjack">Blackjack</Link>
-        </div>
-        <div className="memory">
-          <Link to="/Memory">Memory</Link>
-        </div>
-        <div className="tic-tac-toe">
-          <Link to="/Tic-Tac-Toe">Tic Tac Toe</Link>
-        </div>
-        <div className="battleship">
-          <Link to="/Battleship">Battleship</Link>
-        </div>
+        <Link to="/Blackjack" className="game blackjack">
+          Blackjack
+        </Link>
+
+        <Link to="/Memory" className="game memory">
+          Memory
+        </Link>
+
+        <Link to="/Tic-Tac-Toe" className="game tic-tac-toe">
+          Tic Tac Toe
+        </Link>
+
+        <Link to="/Battleship" className="game battleship">
+          Battleship
+        </Link>
       </div>
     </section>
   );

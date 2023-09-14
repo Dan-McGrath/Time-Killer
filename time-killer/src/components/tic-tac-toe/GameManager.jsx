@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import createGameboard from "./tttLogic/createTttGameboard";
 import Monitor from "./Monitor";
 import Player from "./tttLogic/player";
-import Button from "./Button";
+import Button from "../Button";
 import Message from "./Message";
 
 import { checkWinner, checkDraw } from "./tttLogic/winConditions";

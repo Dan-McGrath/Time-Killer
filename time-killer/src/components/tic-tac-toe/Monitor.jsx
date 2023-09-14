@@ -1,5 +1,5 @@
 import TttGameboard from "./TttGameboard";
-import Button from "./Button";
+import Button from "../Button";
 import PropTypes from "prop-types";
 
 const Monitor = ({

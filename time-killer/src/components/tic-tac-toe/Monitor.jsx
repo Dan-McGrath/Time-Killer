@@ -1,5 +1,6 @@
 import TttGameboard from "./TttGameboard";
 import Button from "./Button";
+import PropTypes from "prop-types";
 
 const Monitor = ({
   gameboard,
@@ -8,7 +9,7 @@ const Monitor = ({
   aiActive,
 }) => {
   return aiActive ? (
-    <>
+    <div className="monitor">
       <TttGameboard
         gameboard={gameboard}
         squareClickHandler={squareClickHandler}
@@ -21,9 +22,9 @@ const Monitor = ({
           className="btn-active"
         />
       </div>
-    </>
+    </div>
   ) : (
-    <>
+    <div className="monitor">
       <TttGameboard
         gameboard={gameboard}
         squareClickHandler={squareClickHandler}
@@ -36,8 +37,15 @@ const Monitor = ({
         />
         <Button text="Vs Computer" clickHandler={choosePlayersHandler} />
       </div>
-    </>
+    </div>
   );
+};
+
+Monitor.propTypes = {
+  gameboard: PropTypes.array,
+  squareClickHandler: PropTypes.func,
+  choosePlayersHandler: PropTypes.func,
+  aiActive: PropTypes.bool,
 };
 
 export default Monitor;

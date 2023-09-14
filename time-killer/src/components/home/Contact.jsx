@@ -19,6 +19,7 @@ const Contact = () => {
           rows="1"
           placeholder="Please leave feedback or any other games you would like to see!"
         ></textarea>
+        <button></button>
       </form>
     </section>
   );

@@ -46,4 +46,9 @@ input{
     -webkit-appearance: none;
     border-radius: 0;
 }
+
+a, a::before {
+    text-decoration: none;
+    color: inherit
+}
 // END RESET

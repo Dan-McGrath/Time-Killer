@@ -1,0 +1,43 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: grey;
+    padding: 1em;    
+    
+    .hamburger {
+        text-align: right;
+        font-size: 1.5rem;
+        padding: 1em;
+    }
+}
+
+nav {
+
+    ul {
+        display: flex;
+        gap: 1em;
+        padding: 1em;
+    }
+}
+
+.nav-mobile {
+    display: block;
+    position: absolute;
+    width: 100vw;
+
+    top: 0;
+    opacity: 92%;
+    ul {
+        position: relative;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    li {
+        padding: 2em;
+        font-size: 1.3rem;
+    }
+
+
+}

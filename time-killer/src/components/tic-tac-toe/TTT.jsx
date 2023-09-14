@@ -1,7 +1,5 @@
 import Header from "../header/Header";
 import GameManager from "./Gamemanager";
-import "../../styles/ttt.scss";
-import "../../styles/reset.scss";
 
 const Ttt = () => {
   return (

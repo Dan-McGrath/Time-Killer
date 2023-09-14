@@ -30,8 +30,13 @@ const GameManager = () => {
       : (setAiActive(true), (player2.current.activeAi = true));
   };
 
-  const setActiveHandler = () => {
-    setActiveGame(!activeGame);
+  const startHandler = () => {
+    if (gameboard === blankGameboard) {
+      setActiveGame(!activeGame);
+    } else {
+      resetGameHandler();
+      setActiveGame(!activeGame);
+    }
   };
 
   const changeCurrentPlayer = () => {
@@ -141,7 +146,7 @@ const GameManager = () => {
         aiActive={aiActive}
       />
       <Message message={message.current} />
-      <Button text="Start" clickHandler={setActiveHandler} />
+      <Button text="Start" clickHandler={startHandler} />
     </>
   );
 };

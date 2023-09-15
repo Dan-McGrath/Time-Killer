@@ -26,9 +26,7 @@ const GameManager = () => {
   };
 
   return (
-    <div className="memory-gameboard">
-      <Gameboard pokemonArray={pokemonArray} newArrayHandler={getNewArray} />
-    </div>
+    <Gameboard pokemonArray={pokemonArray} newArrayHandler={getNewArray} />
   );
 };
 

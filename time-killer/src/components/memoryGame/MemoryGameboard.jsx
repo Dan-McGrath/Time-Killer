@@ -1,21 +1,26 @@
 import PropTypes from "prop-types";
 import Card from "./memoryCard";
-import Button from "../Button";
-const Gameboard = ({ pokemonArray, newArrayHandler }) => {
+
+const Gameboard = ({ pokemonArray, active, faceDown }) => {
   let cardArray = pokemonArray.map((ele) => (
-    <Card key={ele.index} index={ele.pokemon} />
+    <Card
+      key={ele.index}
+      index={ele.pokemon}
+      isActive={active}
+      faceDown={faceDown}
+    />
   ));
 
   return (
     <>
       <div className="memory-gameboard">{cardArray}</div>
-      <Button text="Get Cards" clickHandler={newArrayHandler} />
     </>
   );
 };
 Gameboard.propTypes = {
   pokemonArray: PropTypes.array,
-  newArrayHandler: PropTypes.func,
+  active: PropTypes.bool,
+  faceDown: PropTypes.bool,
 };
 
 export default Gameboard;

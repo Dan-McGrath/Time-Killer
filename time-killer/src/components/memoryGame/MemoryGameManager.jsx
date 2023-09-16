@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Gameboard from "./MemoryGameboard";
+import Button from "../Button";
 
 const startingArr = [
   { index: 0, pokemon: 1 },
@@ -18,6 +19,8 @@ const startingArr = [
 
 const GameManager = () => {
   const [pokemonArray, setPokemonArray] = useState(startingArr);
+  const [active, setActive] = useState(false);
+  const [faceDown, setFaceDown] = useState(false);
 
   const getNewArray = () => {
     let fullArray;
@@ -32,8 +35,16 @@ const GameManager = () => {
     for (let i = 0; i < fullArray.length; i++) {
       fullArray[i] = { index: i, pokemon: fullArray[i] };
     }
-    console.log(fullArray);
-    setPokemonArray(fullArray);
+    return setPokemonArray(fullArray);
+  };
+
+  const startHandler = () => {
+    if (pokemonArray.length > 12) {
+      setPokemonArray(shuffleCards(pokemonArray));
+      setActive(true);
+      setFaceDown(true);
+    }
+    return;
   };
 
   const shuffleCards = (arr) => {
@@ -45,8 +56,26 @@ const GameManager = () => {
     return newArray;
   };
 
-  return (
-    <Gameboard pokemonArray={pokemonArray} newArrayHandler={getNewArray} />
+  return active ? (
+    <>
+      <Gameboard
+        pokemonArray={pokemonArray}
+        isActive={active}
+        faceDown={faceDown}
+      />
+    </>
+  ) : (
+    <>
+      <Gameboard
+        pokemonArray={pokemonArray}
+        handler={getNewArray}
+        isActive={active}
+        startHandler={startHandler}
+        text2="Start"
+      />
+      <Button text="Get Cards" clickHandler={getNewArray} />
+      <Button text="Start" clickHandler={startHandler} />
+    </>
   );
 };
 

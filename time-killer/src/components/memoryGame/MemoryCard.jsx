@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const Card = ({ index }) => {
+const Card = ({ index, active, faceDown }) => {
   const [pokemonName, setPokemonName] = useState("");
   const [pokemonImg, setPokemonImg] = useState("");
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(active);
   const [isMatched, setIsMatched] = useState(false);
 
   useEffect(() => {
@@ -25,18 +25,27 @@ const Card = ({ index }) => {
     setSelected(!selected);
   };
 
-  return selected ? (
+  return faceDown ? (
+    selected ? (
+      <div className="card faceup" onClick={selectedHandler}>
+        <img src={pokemonImg} alt={pokemonName} />
+        <p>{pokemonName}</p>
+      </div>
+    ) : (
+      <div className="card facedown" onClick={selectedHandler}></div>
+    )
+  ) : (
     <div className="card faceup" onClick={selectedHandler}>
       <img src={pokemonImg} alt={pokemonName} />
       <p>{pokemonName}</p>
     </div>
-  ) : (
-    <div className="card facedown" onClick={selectedHandler}></div>
   );
 };
 
 Card.propTypes = {
   index: PropTypes.number,
+  active: PropTypes.bool,
+  faceDown: PropTypes.bool,
 };
 
 export default Card;

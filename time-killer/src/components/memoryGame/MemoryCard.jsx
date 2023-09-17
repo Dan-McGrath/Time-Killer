@@ -43,17 +43,6 @@ const Card = ({
     );
   }
 
-  if (faceDown && isSelected) {
-    return (
-      <div className="card faceup" onClick={selected} data-index={index}>
-        <img src={pokemonImg} alt={pokemonName} />
-        <p>{pokemonName}</p>
-      </div>
-    );
-  }
-  if (faceDown === true) {
-    <div className="card facedown" onClick={selected} data-index={index}></div>;
-  }
   return faceDown ? (
     isSelected ? (
       <div className="card faceup" onClick={selected} data-index={index}>

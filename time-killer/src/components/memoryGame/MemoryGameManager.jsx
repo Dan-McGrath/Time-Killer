@@ -33,9 +33,69 @@ const GameManager = () => {
     fullArray = arr;
     fullArray.forEach((ele) => fullArray.push(ele));
     for (let i = 0; i < fullArray.length; i++) {
-      fullArray[i] = { index: i, pokemon: fullArray[i] };
+      fullArray[i] = {
+        index: i,
+        pokemon: fullArray[i],
+        selected: false,
+        matched: false,
+      };
     }
     return setPokemonArray(fullArray);
+  };
+
+  const checkMatch = () => {
+    let matches = [];
+    pokemonArray.forEach((ele) => {
+      if (ele.selected === true) {
+        matches.push(ele);
+      }
+    });
+    let firstEle = pokemonArray.indexOf(matches[0]);
+    let secondEle = pokemonArray.indexOf(matches[1]);
+    console.log(matches);
+    console.log(firstEle);
+    console.log(secondEle);
+    if (matches[0].pokemon === matches[1].pokemon) {
+      pokemonArray[firstEle].matched = true;
+      pokemonArray[secondEle].matched = true;
+    }
+    pokemonArray[firstEle].selected = false;
+    pokemonArray[secondEle].selected = false;
+    console.log(pokemonArray);
+  };
+
+  const selectHandler = (e) => {
+    let tempIndex = Number(e.currentTarget.dataset.index);
+    let isSelected;
+    pokemonArray.forEach((ele) => {
+      if (ele.index === tempIndex) {
+        isSelected = ele;
+      }
+    });
+    let count = 0;
+    let index = pokemonArray.indexOf(isSelected);
+    if (pokemonArray[index].matched === true) {
+      return;
+    }
+    if (pokemonArray[index].selected === true) {
+      pokemonArray[index].selected = false;
+      setPokemonArray([...pokemonArray]);
+      return;
+    }
+    pokemonArray.forEach((ele) => {
+      if (ele.selected === true) {
+        count += 1;
+      }
+    });
+
+    if (count < 2) {
+      pokemonArray[index].selected = true;
+      setPokemonArray([...pokemonArray]);
+      return;
+    }
+    if (count === 2) {
+      checkMatch();
+    }
   };
 
   const startHandler = () => {
@@ -60,8 +120,8 @@ const GameManager = () => {
     <>
       <Gameboard
         pokemonArray={pokemonArray}
-        isActive={active}
         faceDown={faceDown}
+        selected={selectHandler}
       />
     </>
   ) : (
@@ -69,7 +129,6 @@ const GameManager = () => {
       <Gameboard
         pokemonArray={pokemonArray}
         handler={getNewArray}
-        isActive={active}
         startHandler={startHandler}
         text2="Start"
       />

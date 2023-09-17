@@ -22,6 +22,7 @@ const GameManager = () => {
   const [active, setActive] = useState(false);
   const [faceDown, setFaceDown] = useState(false);
 
+
   const getNewArray = () => {
     let fullArray;
     const set = new Set();
@@ -55,9 +56,11 @@ const GameManager = () => {
     if (matches[0].pokemon === matches[1].pokemon) {
       pokemonArray[firstEle].matched = true;
       pokemonArray[secondEle].matched = true;
+      setPokemonArray([...pokemonArray]);
     }
     pokemonArray[firstEle].selected = false;
     pokemonArray[secondEle].selected = false;
+    setPokemonArray([...pokemonArray]);
   };
 
   const selectHandler = (e) => {
@@ -91,6 +94,7 @@ const GameManager = () => {
     }
     if (count === 2) {
       checkMatch();
+      return;
     }
   };
 

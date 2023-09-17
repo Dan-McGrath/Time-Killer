@@ -24,6 +24,7 @@ const GameManager = () => {
   const [matches, setMatches] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [reset, setReset] = useState(false);
 
   const getNewArray = () => {
     let fullArray;
@@ -100,7 +101,7 @@ const GameManager = () => {
     if (count === 2) {
       setTimeout(() => {
         checkMatch();
-      }, 1000);
+      }, 500);
 
       return;
     }
@@ -109,8 +110,10 @@ const GameManager = () => {
   const startHandler = () => {
     if (pokemonArray.length > 12) {
       setPokemonArray(shuffleCards(pokemonArray));
-      setActive(true);
-      setFaceDown(true);
+      setTimeout(() => {
+        setActive(true);
+        setFaceDown(true);
+      }, 2500);
     }
     return;
   };
@@ -122,6 +125,17 @@ const GameManager = () => {
       [newArray[i], newArray[randInt]] = [newArray[randInt], newArray[i]];
     }
     return newArray;
+  };
+
+  const resetHandler = () => {
+    if (matches === 12) {
+      if (bestScore === 0 || mistakes < bestScore) {
+        setBestScore(mistakes);
+      }
+    }
+    setMistakes(0);
+    setMatches(0);
+    setActive(false);
   };
 
   return active ? (
@@ -136,14 +150,17 @@ const GameManager = () => {
         faceDown={faceDown}
         selected={selectHandler}
       />
+      <Button text="Reset" clickHandler={resetHandler} />
     </>
   ) : (
     <>
+      <div className="score">
+        <p>Top Score: {bestScore}</p>
+      </div>
       <Gameboard
         pokemonArray={pokemonArray}
         handler={getNewArray}
         startHandler={startHandler}
-        text2="Start"
       />
       <Button text="Get Cards" clickHandler={getNewArray} />
       <Button text="Start" clickHandler={startHandler} />

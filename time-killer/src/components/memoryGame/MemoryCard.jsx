@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const Card = ({ index, active, faceDown }) => {
+const Card = ({
+  pokemon,
+  faceDown,
+  index,
+  isSelected,
+  isMatched,
+  selected,
+}) => {
   const [pokemonName, setPokemonName] = useState("");
   const [pokemonImg, setPokemonImg] = useState("");
-  const [selected, setSelected] = useState(active);
-  const [isMatched, setIsMatched] = useState(false);
 
   useEffect(() => {
     const fetchPokemon = async () => {
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${index}/`,
+        `https://pokeapi.co/api/v2/pokemon/${pokemon}/`,
       );
       const data = await response.json();
       setPokemonImg(data.sprites.front_default);
@@ -19,23 +24,51 @@ const Card = ({ index, active, faceDown }) => {
       setPokemonName(captilizedName);
     };
     fetchPokemon();
-  }, [index]);
+  }, [pokemon]);
 
-  const selectedHandler = () => {
-    setSelected(!selected);
-  };
+  if (faceDown === false) {
+    return (
+      <div className="card faceup">
+        <img src={pokemonImg} alt={pokemonName} />
+        <p>{pokemonName}</p>
+      </div>
+    );
+  }
+  if (faceDown && isMatched) {
+    return (
+      <div className="card faceup" data-index={index}>
+        <img src={pokemonImg} alt={pokemonName} />
+        <p>{pokemonName}</p>
+      </div>
+    );
+  }
 
+  if (faceDown && isSelected) {
+    return (
+      <div className="card faceup" onClick={selected} data-index={index}>
+        <img src={pokemonImg} alt={pokemonName} />
+        <p>{pokemonName}</p>
+      </div>
+    );
+  }
+  if (faceDown === true) {
+    <div className="card facedown" onClick={selected} data-index={index}></div>;
+  }
   return faceDown ? (
-    selected ? (
-      <div className="card faceup" onClick={selectedHandler}>
+    isSelected ? (
+      <div className="card faceup" onClick={selected} data-index={index}>
         <img src={pokemonImg} alt={pokemonName} />
         <p>{pokemonName}</p>
       </div>
     ) : (
-      <div className="card facedown" onClick={selectedHandler}></div>
+      <div
+        className="card facedown"
+        onClick={selected}
+        data-index={index}
+      ></div>
     )
   ) : (
-    <div className="card faceup" onClick={selectedHandler}>
+    <div className="card faceup" onClick={selected} data-index={index}>
       <img src={pokemonImg} alt={pokemonName} />
       <p>{pokemonName}</p>
     </div>
@@ -43,9 +76,13 @@ const Card = ({ index, active, faceDown }) => {
 };
 
 Card.propTypes = {
-  index: PropTypes.number,
+  pokemon: PropTypes.number,
   active: PropTypes.bool,
   faceDown: PropTypes.bool,
+  index: PropTypes.number,
+  isSelected: PropTypes.bool,
+  isMatched: PropTypes.bool,
+  selected: PropTypes.func,
 };
 
 export default Card;

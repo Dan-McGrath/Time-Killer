@@ -21,7 +21,9 @@ const GameManager = () => {
   const [pokemonArray, setPokemonArray] = useState(startingArr);
   const [active, setActive] = useState(false);
   const [faceDown, setFaceDown] = useState(false);
-
+  const [matches, setMatches] = useState(0);
+  const [mistakes, setMistakes] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
 
   const getNewArray = () => {
     let fullArray;
@@ -45,18 +47,21 @@ const GameManager = () => {
   };
 
   const checkMatch = () => {
-    let matches = [];
+    let matchesArr = [];
     pokemonArray.forEach((ele) => {
       if (ele.selected === true) {
-        matches.push(ele);
+        matchesArr.push(ele);
       }
     });
-    let firstEle = pokemonArray.indexOf(matches[0]);
-    let secondEle = pokemonArray.indexOf(matches[1]);
-    if (matches[0].pokemon === matches[1].pokemon) {
+    let firstEle = pokemonArray.indexOf(matchesArr[0]);
+    let secondEle = pokemonArray.indexOf(matchesArr[1]);
+    if (matchesArr[0].pokemon === matchesArr[1].pokemon) {
       pokemonArray[firstEle].matched = true;
       pokemonArray[secondEle].matched = true;
+      setMatches(matches + 1);
       setPokemonArray([...pokemonArray]);
+    } else {
+      setMistakes(mistakes + 1);
     }
     pokemonArray[firstEle].selected = false;
     pokemonArray[secondEle].selected = false;
@@ -71,8 +76,10 @@ const GameManager = () => {
         isSelected = ele;
       }
     });
+
     let count = 0;
     let index = pokemonArray.indexOf(isSelected);
+
     if (pokemonArray[index].matched === true) {
       return;
     }
@@ -81,19 +88,20 @@ const GameManager = () => {
       setPokemonArray([...pokemonArray]);
       return;
     }
+    pokemonArray[index].selected = true;
+    setPokemonArray([...pokemonArray]);
+
     pokemonArray.forEach((ele) => {
       if (ele.selected === true) {
         count += 1;
       }
     });
 
-    if (count < 2) {
-      pokemonArray[index].selected = true;
-      setPokemonArray([...pokemonArray]);
-      return;
-    }
     if (count === 2) {
-      checkMatch();
+      setTimeout(() => {
+        checkMatch();
+      }, 1000);
+
       return;
     }
   };
@@ -118,6 +126,11 @@ const GameManager = () => {
 
   return active ? (
     <>
+      <div className="score">
+        <p>Matches: {matches}/12</p>
+        <p>Mistakes: {mistakes}</p>
+        <p>Top Score: {bestScore}</p>
+      </div>
       <Gameboard
         pokemonArray={pokemonArray}
         faceDown={faceDown}

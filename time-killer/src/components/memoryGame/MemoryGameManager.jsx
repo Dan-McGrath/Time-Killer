@@ -52,16 +52,12 @@ const GameManager = () => {
     });
     let firstEle = pokemonArray.indexOf(matches[0]);
     let secondEle = pokemonArray.indexOf(matches[1]);
-    console.log(matches);
-    console.log(firstEle);
-    console.log(secondEle);
     if (matches[0].pokemon === matches[1].pokemon) {
       pokemonArray[firstEle].matched = true;
       pokemonArray[secondEle].matched = true;
     }
     pokemonArray[firstEle].selected = false;
     pokemonArray[secondEle].selected = false;
-    console.log(pokemonArray);
   };
 
   const selectHandler = (e) => {

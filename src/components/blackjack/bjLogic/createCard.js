@@ -7,7 +7,7 @@ const card = (suit, value, name) => {
 
   const getValue = () => newValue;
 
-  const getName = () => newName;
+  const getName = () => `${newName} of ${newSuit}`;
 
   const changeValue = () => {
     if (getValue() === 11) {

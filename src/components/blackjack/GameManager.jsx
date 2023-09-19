@@ -27,7 +27,7 @@ const GameManager = () => {
     getNewDeck();
   }
 
-  const dealCards = () => {
+  const dealHands = () => {
     let currentCard = currentDeck.pop();
     setPlayer1({ ...player1 }, player1.addCardToHand(currentCard));
     currentCard = currentDeck.pop();
@@ -36,6 +36,26 @@ const GameManager = () => {
     setPlayer1({ ...player1 }, player1.addCardToHand(currentCard));
     currentCard = currentDeck.pop();
     setDealer({ ...dealer }, dealer.addCardToHand(currentCard));
+    setCurrentDeck([...currentDeck]);
+  };
+
+  const dealCard = () => {
+    let currentCard = currentDeck.pop();
+    currentPlayer.addCardToHand(currentCard);
+    if (currentPlayer.newName === "Player 1") {
+      setPlayer1({ ...currentPlayer });
+    } else if (currentPlayer.newName === "Dealer") {
+      setDealer({ ...currentPlayer });
+    }
+    setCurrentDeck([...currentDeck]);
+  };
+
+  const stay = () => {
+    if (currentPlayer.newName === "Player 1") {
+      setCurrentPlayer(dealer);
+    } else if (currentPlayer.newName === "Dealer") {
+      setCurrentPlayer(player1);
+    }
   };
 
   return (
@@ -45,7 +65,9 @@ const GameManager = () => {
         currentDealerCards={dealer.getHand()}
         faceUp={faceUp}
       />
-      <Button text="Deal" clickHandler={dealCards} />
+      <Button text="Deal" clickHandler={dealHands} />
+      <Button text="Hit" clickHandler={dealCard} />
+      <Button text="stay" clickHandler={stay} />
     </>
   );
 };

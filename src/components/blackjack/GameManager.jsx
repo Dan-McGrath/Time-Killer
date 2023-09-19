@@ -4,9 +4,7 @@ import Button from "../Button";
 import { useState } from "react";
 
 const GameManager = () => {
-  let newDeck = deck()();
-
-  const [currentDeck, setCurrentDeck] = useState(newDeck);
+  const [faceUp, setFaceUp] = useState(true);
 
   const shuffleCards = (arr) => {
     const newArray = arr.slice(0);
@@ -16,11 +14,14 @@ const GameManager = () => {
     }
     return newArray;
   };
+  let newDeck = shuffleCards(deck()());
 
-  const getDeck = () => setCurrentDeck(shuffleCards(newDeck));
+  const [currentDeck, setCurrentDeck] = useState(newDeck);
+
+  const getDeck = () => setCurrentDeck(newDeck);
   return (
     <>
-      <Gameboard currentDeck={currentDeck} />
+      <Gameboard currentDeck={currentDeck} faceUp={faceUp} />
       <Button text="get Deck" clickHandler={getDeck} />
     </>
   );

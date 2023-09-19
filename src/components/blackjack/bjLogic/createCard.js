@@ -1,6 +1,6 @@
 const card = (suit, value, name) => {
   const newSuit = suit;
-  const newValue = value;
+  let newValue = value;
   const newName = name;
 
   const getSuit = () => newSuit;
@@ -9,7 +9,16 @@ const card = (suit, value, name) => {
 
   const getName = () => newName;
 
-  return { getName, getSuit, getValue };
+  const changeValue = () => {
+    if (getValue() === 11) {
+      newValue = 1;
+    } else if (getValue() === 1) {
+      newValue = 11;
+    }
+    return;
+  };
+
+  return { getName, getSuit, getValue, changeValue };
 };
 
 export default card;

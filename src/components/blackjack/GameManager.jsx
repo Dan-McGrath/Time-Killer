@@ -1,5 +1,6 @@
 import deck from "./bjLogic/createDeck";
 import player from "./bjLogic/player";
+
 import Gameboard from "./Gameboard";
 import Button from "../Button";
 import { useState, useRef } from "react";
@@ -29,9 +30,6 @@ const GameManager = () => {
   const [currentDeck, setCurrentDeck] = useState(newDeck);
 
   const getNewDeck = () => setCurrentDeck(newDeck);
-  if (currentDeck.length < 1) {
-    getNewDeck();
-  }
 
   const dealHands = () => {
     setTimeout(() => {
@@ -56,13 +54,34 @@ const GameManager = () => {
     }, 1600);
   };
 
+  const aiMove = () => {
+    while (dealerScore.current < 17) {
+      let newCard = currentDeck.pop();
+      setCurrentDeck([...currentDeck]);
+      setDealer({ ...dealer }, dealer.addCardToHand(newCard));
+      dealerScore.current = dealer.addScore();
+    }
+    if (dealerScore.current === 21) {
+      setMessage("Blackjack!");
+    }
+    if (dealerScore.current > 21) {
+      setMessage("Bust!");
+    }
+  };
+
   const stay = () => {
     if (currentplayer.current.newName === "Player 1") {
       currentplayer.current = dealer;
-      setDealersTurn(true);
-      return true;
+
+      setTimeout(() => {
+        setDealersTurn(true);
+        setFaceUp(true);
+        aiMove();
+      }, 500);
     }
-    return false;
+    // setTimeout(() => {
+    //   aiMove();
+    // }, 1000);
   };
 
   const hit = () => {
@@ -70,9 +89,7 @@ const GameManager = () => {
     setCurrentDeck([...currentDeck]);
     if (currentplayer.current.newName === "Player 1") {
       setPlayer1({ ...player1 }, player1.addCardToHand(currentCard));
-
       playerScore.current = player1.addScore();
-      console.log(playerScore.current);
     }
     if (currentplayer.current.newName === "Dealer") {
       setDealer({ ...dealer }, dealer.addCardToHand(currentCard));
@@ -89,11 +106,14 @@ const GameManager = () => {
     setDealersTurn(false);
   };
 
+  if (currentDeck.length < 1) {
+    getNewDeck();
+  }
+
   return cardsDealt ? (
     !dealersTurn ? (
       <>
         <div className="scores">
-          <p>Dealer Score: {dealerScore.current}</p>
           <p>Player Score: {playerScore.current}</p>
         </div>
         <Gameboard

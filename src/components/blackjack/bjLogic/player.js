@@ -1,7 +1,6 @@
 const player = (name) => {
   let newName = name;
   let hand = [];
-  let score = 0;
 
   const getHand = () => hand;
   const discardHand = () => (hand = []);
@@ -10,12 +9,12 @@ const player = (name) => {
   };
 
   const addScore = () => {
+    let score = 0;
     getHand().forEach((ele) => {
       score += ele.getValue();
     });
+    return score;
   };
-
-  const getScore = () => score;
 
   const changeAceValue = () => {
     hand.forEach((ele) => {
@@ -27,7 +26,6 @@ const player = (name) => {
 
   return {
     newName,
-    getScore,
     getHand,
     discardHand,
     addCardToHand,

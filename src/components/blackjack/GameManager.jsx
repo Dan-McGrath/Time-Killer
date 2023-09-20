@@ -34,11 +34,13 @@ const GameManager = () => {
   const dealHands = () => {
     setTimeout(() => {
       hit();
+
       currentplayer.current = dealer;
     }, 400);
 
     setTimeout(() => {
       hit();
+
       currentplayer.current = player1;
     }, 800);
 
@@ -49,8 +51,8 @@ const GameManager = () => {
 
     setTimeout(() => {
       hit();
-      currentplayer.current = player1;
       setCardsDealt(true);
+      currentplayer.current = player1;
     }, 1600);
   };
 
@@ -76,12 +78,11 @@ const GameManager = () => {
       setTimeout(() => {
         setDealersTurn(true);
         setFaceUp(true);
-        aiMove();
       }, 500);
     }
-    // setTimeout(() => {
-    //   aiMove();
-    // }, 1000);
+    setTimeout(() => {
+      aiMove();
+    }, 1000);
   };
 
   const hit = () => {
@@ -100,8 +101,10 @@ const GameManager = () => {
   const nextRound = () => {
     dealer.discardHand();
     setDealer({ ...dealer });
+    dealerScore.current = dealer.addScore();
     player1.discardHand();
     setPlayer1({ ...player1 });
+    playerScore.current = player1.addScore();
     setCardsDealt(false);
     setDealersTurn(false);
   };

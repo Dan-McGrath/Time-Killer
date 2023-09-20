@@ -1,10 +1,14 @@
 import PropTypes from "prop-types";
 
-const Card = ({ name }) => {
-  return (
+const Card = ({ name, faceUp }) => {
+  return faceUp ? (
     <div className="card faceup">
       <p>{name}</p>
     </div>
+  ) : (
+    <>
+      <div className="facedown"></div>
+    </>
   );
 };
 

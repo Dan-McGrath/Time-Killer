@@ -1,6 +1,6 @@
 const card = (suit, value, name) => {
   const newSuit = suit;
-  let newValue = value;
+  let newValue = Number(value);
   const newName = name;
 
   const getSuit = () => newSuit;

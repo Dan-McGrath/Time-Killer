@@ -2,13 +2,19 @@ import deck from "./bjLogic/createDeck";
 import player from "./bjLogic/player";
 import Gameboard from "./Gameboard";
 import Button from "../Button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const GameManager = () => {
-  const [faceUp, setFaceUp] = useState(true);
+  const [faceUp, setFaceUp] = useState(false);
   const [player1, setPlayer1] = useState(player("Player 1"));
   const [dealer, setDealer] = useState(player("Dealer"));
-  const [currentPlayer, setCurrentPlayer] = useState(player1);
+  const [cardsDealt, setCardsDealt] = useState(false);
+  const [dealersTurn, setDealersTurn] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const currentplayer = useRef(player1);
+  const playerScore = useRef(player1.addScore());
+  const dealerScore = useRef(dealer.addScore());
 
   const shuffleCards = (arr) => {
     const newArray = arr.slice(0);
@@ -28,46 +34,104 @@ const GameManager = () => {
   }
 
   const dealHands = () => {
-    let currentCard = currentDeck.pop();
-    setPlayer1({ ...player1 }, player1.addCardToHand(currentCard));
-    currentCard = currentDeck.pop();
-    setDealer({ ...dealer }, dealer.addCardToHand(currentCard));
-    currentCard = currentDeck.pop();
-    setPlayer1({ ...player1 }, player1.addCardToHand(currentCard));
-    currentCard = currentDeck.pop();
-    setDealer({ ...dealer }, dealer.addCardToHand(currentCard));
-    setCurrentDeck([...currentDeck]);
-  };
+    setTimeout(() => {
+      hit();
+      currentplayer.current = dealer;
+    }, 400);
 
-  const dealCard = () => {
-    let currentCard = currentDeck.pop();
-    currentPlayer.addCardToHand(currentCard);
-    if (currentPlayer.newName === "Player 1") {
-      setPlayer1({ ...currentPlayer });
-    } else if (currentPlayer.newName === "Dealer") {
-      setDealer({ ...currentPlayer });
-    }
-    setCurrentDeck([...currentDeck]);
+    setTimeout(() => {
+      hit();
+      currentplayer.current = player1;
+    }, 800);
+
+    setTimeout(() => {
+      hit();
+      currentplayer.current = dealer;
+    }, 1200);
+
+    setTimeout(() => {
+      hit();
+      currentplayer.current = player1;
+      setCardsDealt(true);
+    }, 1600);
   };
 
   const stay = () => {
-    if (currentPlayer.newName === "Player 1") {
-      setCurrentPlayer(dealer);
-    } else if (currentPlayer.newName === "Dealer") {
-      setCurrentPlayer(player1);
+    if (currentplayer.current.newName === "Player 1") {
+      currentplayer.current = dealer;
+      setDealersTurn(true);
+      return true;
+    }
+    return false;
+  };
+
+  const hit = () => {
+    let currentCard = currentDeck.pop();
+    setCurrentDeck([...currentDeck]);
+    if (currentplayer.current.newName === "Player 1") {
+      setPlayer1({ ...player1 }, player1.addCardToHand(currentCard));
+
+      playerScore.current = player1.addScore();
+      console.log(playerScore.current);
+    }
+    if (currentplayer.current.newName === "Dealer") {
+      setDealer({ ...dealer }, dealer.addCardToHand(currentCard));
+      dealerScore.current = dealer.addScore();
     }
   };
 
-  return (
+  const nextRound = () => {
+    dealer.discardHand();
+    setDealer({ ...dealer });
+    player1.discardHand();
+    setPlayer1({ ...player1 });
+    setCardsDealt(false);
+    setDealersTurn(false);
+  };
+
+  return cardsDealt ? (
+    !dealersTurn ? (
+      <>
+        <div className="scores">
+          <p>Dealer Score: {dealerScore.current}</p>
+          <p>Player Score: {playerScore.current}</p>
+        </div>
+        <Gameboard
+          currentPlayerCards={player1.getHand()}
+          currentDealerCards={dealer.getHand()}
+          faceUp={faceUp}
+          cardsDealt={cardsDealt}
+        />
+        <div className="message">{message}</div>
+
+        <Button text="Hit" clickHandler={hit} />
+        <Button text="stay" clickHandler={stay} />
+      </>
+    ) : (
+      <>
+        <div className="scores">
+          <p>Dealer Score: {dealerScore.current}</p>
+          <p>Player Score: {playerScore.current}</p>
+        </div>
+        <Gameboard
+          currentPlayerCards={player1.getHand()}
+          currentDealerCards={dealer.getHand()}
+          faceUp={faceUp}
+          cardsDealt={cardsDealt}
+        />
+        <div className="message">{message}</div>
+        <Button text="Next Round" clickHandler={nextRound} />
+      </>
+    )
+  ) : (
     <>
       <Gameboard
         currentPlayerCards={player1.getHand()}
         currentDealerCards={dealer.getHand()}
         faceUp={faceUp}
+        cardsDealt={cardsDealt}
       />
       <Button text="Deal" clickHandler={dealHands} />
-      <Button text="Hit" clickHandler={dealCard} />
-      <Button text="stay" clickHandler={stay} />
     </>
   );
 };

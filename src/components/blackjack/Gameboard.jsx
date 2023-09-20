@@ -8,11 +8,7 @@ const Gameboard = ({
   cardsDealt,
 }) => {
   let playerHand = currentPlayerCards.map((ele) => (
-    <Card
-      key={`${ele.getName()} of ${ele.getSuit()}`}
-      name={ele.getName()}
-      faceUp={faceUp}
-    />
+    <Card key={`${ele.getName()}`} name={ele.getName()} faceUp={true} />
   ));
 
   let dealerHand = currentDealerCards.map((ele) => (
@@ -20,7 +16,7 @@ const Gameboard = ({
       key={`${ele.getName()} of ${ele.getSuit()}`}
       name={ele.getName()}
       suit={ele.getSuit()}
-      faceUp={faceUp}
+      faceUp={true}
     />
   ));
 
@@ -34,7 +30,8 @@ const Gameboard = ({
       <>
         <div className="player-hand">{playerHand}</div>
         <div className="dealer-hand">
-          <Card name={currentDealerCards[1].getName()} />
+          <Card name={currentDealerCards[0].getName()} faceUp={true} />
+          <Card name={currentDealerCards[1].getName()} faceUp={false} />
           <div className="bj-facedown"></div>
         </div>
       </>

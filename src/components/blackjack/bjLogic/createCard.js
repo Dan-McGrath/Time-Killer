@@ -11,9 +11,9 @@ const card = (suit, value, name) => {
 
   const changeValue = () => {
     if (getValue() === 11) {
-      newValue = 1;
+      newValue = Number(1);
     } else if (getValue() === 1) {
-      newValue = 11;
+      newValue = Number(11);
     }
     return;
   };

@@ -32,15 +32,16 @@ const GameManager = () => {
   const getNewDeck = () => setCurrentDeck(newDeck);
 
   const dealHands = () => {
+    if (currentDeck.length < 4) {
+      getNewDeck();
+    }
     setTimeout(() => {
       hit();
-
       currentplayer.current = dealer;
     }, 400);
 
     setTimeout(() => {
       hit();
-
       currentplayer.current = player1;
     }, 800);
 
@@ -57,6 +58,7 @@ const GameManager = () => {
   };
 
   const aiMove = () => {
+    let dealersHand = dealer.getHand();
     while (dealerScore.current < 17) {
       let newCard = currentDeck.pop();
       setCurrentDeck([...currentDeck]);
@@ -64,10 +66,24 @@ const GameManager = () => {
       dealerScore.current = dealer.addScore();
     }
     if (dealerScore.current === 21) {
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
       setMessage("Blackjack!");
     }
     if (dealerScore.current > 21) {
+      dealersHand.forEach((ele) => {
+        console.log(ele);
+        if (ele.getValue() === 11) {
+          ele.changeValue();
+          dealerScore.current = dealer.addScore();
+          aiMove();
+        }
+      });
       setMessage("Bust!");
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
     }
   };
 
@@ -99,17 +115,17 @@ const GameManager = () => {
   };
 
   const nextRound = () => {
-    dealer.discardHand();
-    setDealer({ ...dealer });
+    setDealer({ ...dealer }, dealer.discardHand());
     dealerScore.current = dealer.addScore();
-    player1.discardHand();
-    setPlayer1({ ...player1 });
+    setPlayer1({ ...player1 }, player1.discardHand());
     playerScore.current = player1.addScore();
     setCardsDealt(false);
     setDealersTurn(false);
+    setFaceUp(false);
+    currentplayer.current = player1;
   };
 
-  if (currentDeck.length < 1) {
+  if (currentDeck.length < 10) {
     getNewDeck();
   }
 
@@ -135,6 +151,7 @@ const GameManager = () => {
         <div className="scores">
           <p>Dealer Score: {dealerScore.current}</p>
           <p>Player Score: {playerScore.current}</p>
+          <p>Cards in Deck: {currentDeck.length}</p>
         </div>
         <Gameboard
           currentPlayerCards={player1.getHand()}

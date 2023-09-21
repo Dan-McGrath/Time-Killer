@@ -59,28 +59,29 @@ const GameManager = () => {
 
   const aiMove = () => {
     let dealersHand = dealer.getHand();
+
     while (dealerScore.current < 17) {
       let newCard = currentDeck.pop();
       setCurrentDeck([...currentDeck]);
       setDealer({ ...dealer }, dealer.addCardToHand(newCard));
       dealerScore.current = dealer.addScore();
     }
+
     if (dealerScore.current === 21) {
       setTimeout(() => {
         setMessage("");
       }, 3000);
-      setMessage("Blackjack!");
+      setMessage("Dealer has Blackjack!");
     }
     if (dealerScore.current > 21) {
       dealersHand.forEach((ele) => {
-        console.log(ele);
         if (ele.getValue() === 11) {
           ele.changeValue();
           dealerScore.current = dealer.addScore();
           aiMove();
         }
       });
-      setMessage("Bust!");
+      setMessage("Dealer Busted!");
       setTimeout(() => {
         setMessage("");
       }, 3000);
@@ -107,6 +108,27 @@ const GameManager = () => {
     if (currentplayer.current.newName === "Player 1") {
       setPlayer1({ ...player1 }, player1.addCardToHand(currentCard));
       playerScore.current = player1.addScore();
+      if (playerScore.current === 21) {
+        setMessage("Blackjack!");
+        setTimeout(() => {
+          setMessage("");
+        }, 3000);
+      }
+
+      player1.getHand().forEach((ele) => {
+        if (ele.getValue() === 11) {
+          ele.changeValue();
+          playerScore.current = player1.addScore();
+        }
+      });
+
+      if (playerScore.current > 21) {
+        setMessage("Bust");
+        setTimeout(() => {
+          stay();
+          setMessage("");
+        }, 2000);
+      }
     }
     if (currentplayer.current.newName === "Dealer") {
       setDealer({ ...dealer }, dealer.addCardToHand(currentCard));

@@ -118,14 +118,13 @@ const GameManager = () => {
         }, 3000);
       }
 
-      player1.getHand().forEach((ele) => {
-        if (ele.getValue() === 11) {
-          ele.changeValue();
-          playerScore.current = player1.addScore();
-        }
-      });
-
       if (playerScore.current > 21) {
+        player1.getHand().forEach((ele) => {
+          if (ele.getValue() === 11) {
+            ele.changeValue();
+            playerScore.current = player1.addScore();
+          }
+        });
         setMessage("Bust");
         setTimeout(() => {
           stay();

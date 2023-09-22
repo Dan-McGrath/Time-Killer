@@ -23,23 +23,34 @@ const Gameboard = ({
   return cardsDealt ? (
     faceUp ? (
       <>
-        <div className="player-hand">{playerHand}</div>
-        <div className="dealer-hand">{dealerHand}</div>
+        <p className="player">Dealers Hand</p>
+        <div className="bj-gameboard">
+          <div className="player-hand">{playerHand}</div>
+          <div className="dealer-hand">{dealerHand}</div>
+        </div>
+        <p className="player">Your Hand</p>
       </>
     ) : (
       <>
-        <div className="player-hand">{playerHand}</div>
-        <div className="dealer-hand">
-          <Card name={currentDealerCards[0].getName()} faceUp={true} />
-          <Card name={currentDealerCards[1].getName()} faceUp={false} />
-          <div className="bj-facedown"></div>
+        <p className="player">Dealers Hand</p>
+        <div className="bj-gameboard">
+          <div className="player-hand">{playerHand}</div>
+          <div className="dealer-hand">
+            <Card name={currentDealerCards[0].getName()} faceUp={true} />
+            <Card name={currentDealerCards[1].getName()} faceUp={false} />
+          </div>
         </div>
+        <p className="player">Your Hand</p>
       </>
     )
   ) : (
     <>
-      <div className="player-hand">{playerHand}</div>
-      <div className="dealer-hand">{dealerHand}</div>
+      <p className="player">Dealers Hand</p>
+      <div className="bj-gameboard">
+        <div className="player-hand">{playerHand}</div>
+        <div className="dealer-hand">{dealerHand}</div>
+      </div>
+      <p className="player">Your Hand</p>
     </>
   );
 };

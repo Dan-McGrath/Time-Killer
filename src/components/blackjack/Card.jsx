@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 
 const Card = ({ name, faceUp }) => {
   return faceUp ? (
-    <div className="card faceup">
+    <div className="bj-card faceup">
       <p>{name}</p>
     </div>
   ) : (
     <>
-      <div className="facedown"></div>
+      <div className="bj-facedown"></div>
     </>
   );
 };

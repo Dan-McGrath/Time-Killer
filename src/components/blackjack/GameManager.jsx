@@ -60,18 +60,21 @@ const GameManager = () => {
   const aiMove = () => {
     let dealersHand = dealer.getHand();
 
-    while (dealerScore.current < 17) {
-      let newCard = currentDeck.pop();
-      setCurrentDeck([...currentDeck]);
-      setDealer({ ...dealer }, dealer.addCardToHand(newCard));
-      dealerScore.current = dealer.addScore();
+    if (dealerScore.current < 17) {
+      setTimeout(() => {
+        let newCard = currentDeck.pop();
+        setCurrentDeck([...currentDeck]);
+        setDealer({ ...dealer }, dealer.addCardToHand(newCard));
+        dealerScore.current = dealer.addScore();
+        aiMove();
+      }, 1000);
     }
 
     if (dealerScore.current === 21) {
+      setMessage("Dealer has Blackjack!");
       setTimeout(() => {
         setMessage("");
       }, 3000);
-      setMessage("Dealer has Blackjack!");
     }
     if (dealerScore.current > 21) {
       dealersHand.forEach((ele) => {

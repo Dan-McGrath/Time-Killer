@@ -16,19 +16,19 @@ const player = (name) => {
       placed: false,
     },
     {
-      ship: ship(5, "Battleship"),
+      ship: ship(4, "Battleship"),
       placed: false,
     },
     {
-      ship: ship(5, "Destroyer"),
+      ship: ship(3, "Destroyer"),
       placed: false,
     },
     {
-      ship: ship(5, "Submarine"),
+      ship: ship(3, "Submarine"),
       placed: false,
     },
     {
-      ship: ship(5, "Patrol Boat"),
+      ship: ship(2, "Patrol Boat"),
       placed: false,
     },
   ];
@@ -61,6 +61,7 @@ const player = (name) => {
     placeShip,
     newGameboard,
     currentGameboard,
+    ships,
   };
 };
 

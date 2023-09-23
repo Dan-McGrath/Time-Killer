@@ -4,9 +4,17 @@ const Square = ({
   isAttacked,
   isMissed,
   clickEvent,
+  dropHandler,
+  dragOverHandler,
 }) => {
   return (
-    <div className="square" clickEvent={clickEvent}>
+    <div
+      className="square"
+      onClick={clickEvent}
+      onDrop={dropHandler}
+      onDragOver={dragOverHandler}
+      id={coordinate}
+    >
       {coordinate}
     </div>
   );

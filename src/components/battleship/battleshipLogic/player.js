@@ -1,7 +1,14 @@
 import ship from "./ship";
+import gameboard from "./gameboardLogic";
 
 const player = (name) => {
   const getName = () => name;
+
+  const gameboardObj = gameboard();
+
+  const newGameboard = gameboardObj.createGameboard();
+
+  const currentGameboard = gameboardObj.getGameboard();
 
   const ships = [
     {
@@ -25,6 +32,8 @@ const player = (name) => {
       placed: false,
     },
   ];
+
+  let shipLocations = [];
 
   const selectShip = (index) => {
     if (ships[index].placed === true) {
@@ -50,6 +59,8 @@ const player = (name) => {
     selectCoordinate,
     selectOrientation,
     placeShip,
+    newGameboard,
+    currentGameboard,
   };
 };
 

@@ -3,3 +3,29 @@
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
 }
+
+.ships {
+    display: flex;
+    justify-content: space-evenly;
+    
+    gap: 1em;
+    margin: 1em auto;
+
+}
+
+.ship {
+    border: 1px solid black;
+    padding: 1em;
+}
+
+.orientation {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em auto;
+}
+
+.occupied {
+    background-color: blue;
+}

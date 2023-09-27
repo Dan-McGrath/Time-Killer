@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
-
-import Gameboard from "./Gameboard";
 import player from "./battleshipLogic/player";
+import Gameboard from "./Gameboard";
+import Button from "../Button.jsx";
+
 const GameManager = () => {
   const firstPlayer = player("Player 1");
   const secondPlayer = player("Player 2");
@@ -9,9 +10,11 @@ const GameManager = () => {
   const [shipsPlaced, setShipsPlaced] = useState(false);
   const [player1, setPlayer1] = useState(firstPlayer);
   const [player2, setPlayer2] = useState(secondPlayer);
-
+  const [isVertical, setIsVertical] = useState(true);
+  const [isHorizontal, setIsHorizontal] = useState(false);
   const currentPlayer = useRef(player1);
 
+  const horizontalCollisons = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
   // drag and drop functions
 
   let dragged;
@@ -27,7 +30,39 @@ const GameManager = () => {
   };
 
   const dropHandler = (e) => {
-    e.target.appendChild(dragged);
+    let index = Number(e.target.id);
+    const squares = document.querySelectorAll(".square");
+    currentPlayer.current.ships.forEach((ele) => {
+      if (dragged.id === ele.ship.getName()) {
+        let size = ele.ship.getLength();
+        if (
+          isHorizontal &&
+          horizontalCollisons.some((ele) => ele === size + index)
+        ) {
+          for (let i = size - 1; i >= 0; i--) {
+            squares[index + i].classList.add("occupied");
+            squares[index + i].appendChild(dragged);
+          }
+        }
+        if (isVertical && (size - 1) * 10 + index < 101) {
+          for (let i = size - 1; i >= 0; i--) {
+            squares[index].classList.add("occupied");
+            squares[index].appendChild(dragged);
+            index += 10;
+          }
+        }
+      }
+    });
+  };
+
+  const orientation = () => {
+    if (isVertical === true) {
+      setIsVertical(false);
+      setIsHorizontal(true);
+    } else {
+      setIsVertical(true);
+      setIsHorizontal(false);
+    }
   };
 
   const currentPlayersShips = currentPlayer.current.ships.map((ele) => (
@@ -53,6 +88,10 @@ const GameManager = () => {
         />
       </div>
       <div className="ships">{currentPlayersShips}</div>
+      <div className="orientation">
+        <Button text="Vertical" clickHandler={orientation} />
+        <Button text="Horizontal" clickHandler={orientation} />
+      </div>
     </>
   );
 };

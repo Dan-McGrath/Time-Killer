@@ -6,6 +6,7 @@ const Square = ({
   clickEvent,
   dropHandler,
   dragOverHandler,
+  index,
 }) => {
   return (
     <div
@@ -13,7 +14,7 @@ const Square = ({
       onClick={clickEvent}
       onDrop={dropHandler}
       onDragOver={dragOverHandler}
-      id={coordinate}
+      id={index}
     >
       {coordinate}
     </div>

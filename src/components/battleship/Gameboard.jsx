@@ -3,7 +3,8 @@ import Square from "./Square";
 const Gameboard = ({ currentPlayer, dragOverHandler, dropHandler }) => {
   let currentPlayerGameboard = currentPlayer.currentGameboard.map((ele) => (
     <Square
-      key={ele.coordinate}
+      key={ele.index}
+      index={ele.index}
       coordinate={ele.coordinate}
       isAttacked={ele.isAttacked}
       isOccupied={ele.isOccupied}

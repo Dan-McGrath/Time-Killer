@@ -37,17 +37,19 @@ const GameManager = () => {
         let size = ele.ship.getLength();
         if (
           isHorizontal &&
-          horizontalCollisons.some((ele) => ele === size + index)
+          !horizontalCollisons.some((ele) => ele === size - 1 + index)
         ) {
+          squares[index].appendChild(dragged);
           for (let i = size - 1; i >= 0; i--) {
             squares[index + i].classList.add("occupied");
-            squares[index + i].appendChild(dragged);
           }
         }
         if (isVertical && (size - 1) * 10 + index < 101) {
+          squares[index].appendChild(dragged);
           for (let i = size - 1; i >= 0; i--) {
+            console.log(index);
             squares[index].classList.add("occupied");
-            squares[index].appendChild(dragged);
+
             index += 10;
           }
         }

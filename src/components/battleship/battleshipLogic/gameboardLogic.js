@@ -20,6 +20,15 @@ const gameboard = () => {
     return gameboardArr;
   };
 
+  let shipLocations = [];
+
+  const addShipLocation = (ship, location) => {
+    shipLocations.push({
+      ship: ship,
+      location: location,
+    });
+  };
+
   const getGameboard = () => gameboardArr;
 
   const getSquare = () => {};
@@ -27,6 +36,8 @@ const gameboard = () => {
   return {
     createGameboard,
     getGameboard,
+    shipLocations,
+    addShipLocation,
   };
 };
 

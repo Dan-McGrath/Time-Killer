@@ -33,7 +33,9 @@ const player = (name) => {
     },
   ];
 
-  let shipLocations = [];
+  const shipLocations = gameboardObj.shipLocations;
+
+  const addShipLocation = gameboardObj.addShipLocation;
 
   const selectShip = (index) => {
     if (ships[index].placed === true) {
@@ -62,6 +64,8 @@ const player = (name) => {
     newGameboard,
     currentGameboard,
     ships,
+    shipLocations,
+    addShipLocation,
   };
 };
 

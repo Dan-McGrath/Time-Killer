@@ -48,7 +48,7 @@ const GameManager = () => {
         }
       }
     });
-    console.log(currentPlayer.current.board.shipLocations);
+
     currentPlayer.current.board.gameboard.forEach((ele) => {
       if (ele.isOccupied) {
         squares[ele.index].classList.add("occupied");
@@ -59,8 +59,27 @@ const GameManager = () => {
     });
   };
 
-  const orientation = () => {
-    if (isVertical === true) {
+  const orientation = (e) => {
+    if (e.target.classList.contains("active")) {
+      if (e.target.previousSibling) {
+        e.target.previousSibling.classList.add("active");
+        e.target.classList.remove("active");
+      }
+      if (e.target.nextSibling) {
+        e.target.nextSibling.classList.add("active");
+        e.target.classList.remove("active");
+      }
+      e.target.classList.remove("active");
+    } else {
+      e.target.classList.add("active");
+      if (e.target.previousSibling) {
+        e.target.previousSibling.classList.remove("active");
+      }
+      if (e.target.nextSibling) {
+        e.target.nextSibling.classList.remove("active");
+      }
+    }
+    if (isVertical) {
       setIsVertical(false);
       setIsHorizontal(true);
     } else {
@@ -82,7 +101,6 @@ const GameManager = () => {
     </div>
   ));
 
-  console.log(currentPlayer.current.shipLocations);
   return (
     <>
       <div className="battleship-gameboard">
@@ -94,8 +112,16 @@ const GameManager = () => {
       </div>
       <div className="ships">{currentPlayersShips}</div>
       <div className="orientation">
-        <Button text="Vertical" clickHandler={orientation} />
-        <Button text="Horizontal" clickHandler={orientation} />
+        <Button
+          text="Vertical"
+          clickHandler={orientation}
+          className="vertical active"
+        />
+        <Button
+          text="Horizontal"
+          clickHandler={orientation}
+          className="horizontal"
+        />
       </div>
     </>
   );

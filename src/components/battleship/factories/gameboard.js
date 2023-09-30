@@ -29,7 +29,19 @@ const gameboard = () => {
   let shipLocations = [];
 
   const addShipLocation = (ship, axis, index) => {
-    // Checks if index is occupied
+    if (ship.placed === true) {
+      shipLocations.forEach((ele) => {
+        console.log(ele);
+        if (ele.ship.name === ship.name) {
+          let i = shipLocations.indexOf(ele);
+          shipLocations.splice(i, 1);
+          ele.location.forEach((loc) => {
+            gameboard[loc].isOccupied = false;
+            console.log(gameboard[loc]);
+          });
+        }
+      });
+    }
 
     let location = [];
     if (axis === "x") {
@@ -54,7 +66,7 @@ const gameboard = () => {
         }
       }
     }
-
+    //check if ship is already occuping square
     shipLocations.forEach((ele) => {
       ele.location.forEach((n) => {
         location.forEach((loc) => {
@@ -70,6 +82,7 @@ const gameboard = () => {
       location.forEach((loc) => {
         gameboard[loc].isOccupied = true;
       });
+      ship.placed = true;
       shipLocations.push({
         ship: ship,
         location: location,

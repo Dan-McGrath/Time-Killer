@@ -1,11 +1,13 @@
 import { useState, useRef } from "react";
-import player from "./battleshipLogic/player";
+import player from "./factories/player";
 import Gameboard from "./Gameboard";
 import Button from "../Button.jsx";
 
 const GameManager = () => {
   const firstPlayer = player("Player 1");
   const secondPlayer = player("Player 2");
+
+  firstPlayer.getBlankBoard();
 
   const [shipsPlaced, setShipsPlaced] = useState(false);
   const [player1, setPlayer1] = useState(firstPlayer);
@@ -36,53 +38,20 @@ const GameManager = () => {
   const dropHandler = (e) => {
     let index = Number(e.target.id);
     const squares = document.querySelectorAll(".square");
-    let location = [];
     currentPlayer.current.ships.forEach((ele) => {
-      if (dragged.id === ele.ship.getName()) {
-        let size = ele.ship.getLength();
-        if (
-          isHorizontal &&
-          !horizontalCollisons.some((ele) => ele === size - 1 + index)
-        ) {
-          squares[index].appendChild(dragged);
-          for (let i = size - 1; i >= 0; i--) {
-            squares[index + i].classList.add("occupied");
-            location.push(index + i);
-          }
-          if (currentPlayer.current === player1) {
-            setPlayer1(
-              { ...player1 },
-              player1.addShipLocation(ele.ship, location),
-            );
-          } else {
-            setPlayer2(
-              { ...player2 },
-              player2.addShipLocation(ele.ship, location),
-            );
-          }
-
-          //currentPlayer.current.addShipLocation();
+      if (dragged.id === ele.name) {
+        if (isHorizontal) {
+          currentPlayer.current.board.addShipLocation(ele, "x", index);
         }
-        if (isVertical && (size - 1) * 10 + index < 101) {
-          squares[index].appendChild(dragged);
-
-          for (let i = size - 1; i >= 0; i--) {
-            squares[index].classList.add("occupied");
-            location.push(index);
-            index += 10;
-          }
-          if (currentPlayer.current === player1) {
-            setPlayer1(
-              { ...player1 },
-              player1.addShipLocation(ele.ship, location),
-            );
-          } else {
-            setPlayer2(
-              { ...player2 },
-              player2.addShipLocation(ele.ship, location),
-            );
-          }
+        if (isVertical) {
+          currentPlayer.current.board.addShipLocation(ele, "y", index);
         }
+      }
+    });
+    console.log(currentPlayer.current.board.shipLocations);
+    currentPlayer.current.board.gameboard.forEach((ele) => {
+      if (ele.isOccupied) {
+        squares[ele.index].classList.add("occupied");
       }
     });
   };
@@ -100,19 +69,15 @@ const GameManager = () => {
   const currentPlayersShips = currentPlayer.current.ships.map((ele) => (
     <div
       className="ship"
-      key={ele.ship.getName()}
+      key={ele.name}
       draggable="true"
       onDragStart={dragstartHandler}
-      id={ele.ship.getName()}
+      id={ele.name}
     >
-      <p>{ele.ship.getName()}</p>
-      <p>Size: {ele.ship.getLength()}</p>
+      <p>{ele.name}</p>
+      <p>Size: {ele.size}</p>
     </div>
   ));
-
-  const currentShipLocations = currentPlayer.current.shipLocations.map(
-    (ele) => <div key={ele.ship}>{ele.location}</div>,
-  );
 
   console.log(currentPlayer.current.shipLocations);
   return (
@@ -129,7 +94,6 @@ const GameManager = () => {
         <Button text="Vertical" clickHandler={orientation} />
         <Button text="Horizontal" clickHandler={orientation} />
       </div>
-      <div>{currentShipLocations}</div>
     </>
   );
 };

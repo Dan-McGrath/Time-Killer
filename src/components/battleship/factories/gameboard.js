@@ -29,15 +29,14 @@ const gameboard = () => {
   let shipLocations = [];
 
   const addShipLocation = (ship, axis, index) => {
+    //check if ship is already placed
     if (ship.placed === true) {
       shipLocations.forEach((ele) => {
-        console.log(ele);
         if (ele.ship.name === ship.name) {
           let i = shipLocations.indexOf(ele);
           shipLocations.splice(i, 1);
           ele.location.forEach((loc) => {
             gameboard[loc].isOccupied = false;
-            console.log(gameboard[loc]);
           });
         }
       });

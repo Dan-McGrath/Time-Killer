@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Square from "./Square";
 const Gameboard = ({ currentPlayer, dragOverHandler, dropHandler }) => {
-  let currentPlayerGameboard = currentPlayer.currentGameboard.map((ele) => (
+  let currentPlayerGameboard = currentPlayer.board.gameboard.map((ele) => (
     <Square
       key={ele.index}
       index={ele.index}

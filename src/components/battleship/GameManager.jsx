@@ -53,6 +53,9 @@ const GameManager = () => {
       if (ele.isOccupied) {
         squares[ele.index].classList.add("occupied");
       }
+      if (!ele.isOccupied) {
+        squares[ele.index].classList.remove("occupied");
+      }
     });
   };
 

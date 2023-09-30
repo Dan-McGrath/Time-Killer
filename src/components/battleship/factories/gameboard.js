@@ -50,7 +50,7 @@ const gameboard = () => {
       // check if ship will exceed horizontal borders
       if (
         horizontalBorder.some((num) => {
-          return [num + 1].every((ele) => location.includes(ele));
+          return [num, num + 1].every((ele) => location.includes(ele));
         })
       ) {
         location = [];

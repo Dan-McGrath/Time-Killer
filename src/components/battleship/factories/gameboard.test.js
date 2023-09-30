@@ -8,12 +8,12 @@ describe("gameboard", () => {
     expect(newGameboard.gameboard.length).toBe(100);
   });
 
-  it("should return location of ship at [0, 1, 2, 3]", () => {
+  it("should return location of ship at [10, 11, 12, 13]", () => {
     const newGameboard = gameboard();
     newGameboard.createGameboard();
     let newShip = ship("ship", 4);
-    newGameboard.addShipLocation(newShip, "x", 0);
-    expect(newGameboard.shipLocations[0].location).toEqual([0, 1, 2, 3]);
+    newGameboard.addShipLocation(newShip, "x", 10);
+    expect(newGameboard.shipLocations[0].location).toEqual([10, 11, 12, 13]);
   });
 
   it("should return location of ship at [0, 10, 20, 30]", () => {

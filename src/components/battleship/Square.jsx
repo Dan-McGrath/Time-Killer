@@ -7,18 +7,39 @@ const Square = ({
   dropHandler,
   dragOverHandler,
   index,
+  attackHandler,
 }) => {
-  return (
-    <div
-      className="square"
-      onClick={clickEvent}
-      onDrop={dropHandler}
-      onDragOver={dragOverHandler}
-      id={index}
-    >
-      {coordinate}
-    </div>
-  );
+  if (isAttacked && isOccupied) {
+    return (
+      <div
+        className="square hit"
+        onClick={attackHandler}
+        onDrop={dropHandler}
+        onDragOver={dragOverHandler}
+        id={index}
+      ></div>
+    );
+  } else if (isAttacked && !isOccupied) {
+    return (
+      <div
+        className="square missed"
+        onClick={attackHandler}
+        onDrop={dropHandler}
+        onDragOver={dragOverHandler}
+        id={index}
+      ></div>
+    );
+  } else if (!isAttacked) {
+    return (
+      <div
+        className="square"
+        onClick={attackHandler}
+        onDrop={dropHandler}
+        onDragOver={dragOverHandler}
+        id={index}
+      ></div>
+    );
+  }
 };
 
 export default Square;

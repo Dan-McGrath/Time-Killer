@@ -1,7 +1,6 @@
 .battleship-gameboard {
-    display: grid;
-    grid-template-columns: repeat(10, 50px);
-    grid-template-rows: repeat(10, 50px);
+    display: flex;
+    gap: 2em;
     justify-content: center;
 }
 
@@ -33,4 +32,30 @@
 
 .active {
     background-color: green;
+}
+
+.placed {
+    background-color: green;
+}
+
+.battleship-gameboard-player {
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
+    justify-content: center;
+}
+
+.battleship-gameboard-enemy {
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
+    justify-content: center;
+}
+
+.hit {
+    background-color: red;
+}
+
+.missed {
+    background-color: black;
 }

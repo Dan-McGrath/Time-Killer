@@ -1,16 +1,20 @@
 import PropTypes from "prop-types";
 import Square from "./Square";
-const Gameboard = ({ currentPlayer, dragOverHandler, dropHandler }) => {
+const Gameboard = ({
+  currentPlayer,
+  dragOverHandler,
+  dropHandler,
+  attackHandler,
+}) => {
   let currentPlayerGameboard = currentPlayer.board.gameboard.map((ele) => (
     <Square
       key={ele.index}
       index={ele.index}
-      coordinate={ele.coordinate}
       isAttacked={ele.isAttacked}
       isOccupied={ele.isOccupied}
-      isMissed={ele.isMissed}
       dragOverHandler={dragOverHandler}
       dropHandler={dropHandler}
+      attackHandler={attackHandler}
     />
   ));
 

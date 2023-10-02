@@ -103,9 +103,8 @@ const gameboard = () => {
           ele.ship.hit();
         }
       });
-      return true;
     }
-    return false;
+    return true;
   };
 
   return { gameboard, shipLocations, addShipLocation, createGameboard, attack };

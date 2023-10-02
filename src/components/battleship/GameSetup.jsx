@@ -79,12 +79,10 @@ const GameSetup = ({ isMobile }) => {
 
   const selectShip = (e) => {
     dragged = e.currentTarget;
-    console.log(dragged);
   };
 
   const selectSquare = (e) => {
     let index = Number(e.currentTarget.id);
-    console.log(index);
     const squares = document.querySelectorAll(".square");
     const ships = document.querySelectorAll(".ship");
     currentPlayer.current.ships.forEach((ele) => {

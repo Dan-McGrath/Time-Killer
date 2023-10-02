@@ -26,8 +26,8 @@ const Square = ({
         <div
           className="square missed"
           onClick={attackHandler}
-          onTouchEnd={dropHandler}
-          onTouchMove={dragOverHandler}
+          onTouchEnd={touchEndHandler}
+          onTouchMove={touchMoveHandler}
           id={index}
         ></div>
       );
@@ -36,8 +36,8 @@ const Square = ({
         <div
           className="square"
           onClick={attackHandler}
-          onTouchEnd={dropHandler}
-          onTouchMove={dragOverHandler}
+          onTouchEnd={touchEndHandler}
+          onTouchMove={touchMoveHandler}
           id={index}
         ></div>
       );

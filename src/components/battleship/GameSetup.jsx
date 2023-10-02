@@ -23,7 +23,6 @@ const GameSetup = () => {
 
   // drag and drop functions
 
-
   let dragged;
 
   const dragstartHandler = (e) => {
@@ -186,7 +185,7 @@ const GameSetup = () => {
     setGameStart(false);
     setHasAttacked(false);
     setMessage("");
-    setWinner(false)
+    setWinner(false);
     currentPlayer.current = firstPlayer;
     enemyPlayer.current = secondPlayer;
   };

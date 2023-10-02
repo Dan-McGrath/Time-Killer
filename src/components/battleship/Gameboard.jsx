@@ -6,8 +6,8 @@ const Gameboard = ({
   dropHandler,
   attackHandler,
   isMobile,
-  touchEndHandler,
-  touchMoveHandler,
+  selectSquare,
+  gameStart,
 }) => {
   let currentPlayerGameboard = currentPlayer.board.gameboard.map((ele) => (
     <Square
@@ -19,8 +19,8 @@ const Gameboard = ({
       dropHandler={dropHandler}
       attackHandler={attackHandler}
       isMobile={isMobile}
-      touchEndHandler={touchEndHandler}
-      touchMoveHandler={touchMoveHandler}
+      selectSquare={selectSquare}
+      gameStart={gameStart}
     />
   ));
 
@@ -33,8 +33,8 @@ Gameboard.propTypes = {
   dropHandler: PropTypes.func,
   attackHandler: PropTypes.func,
   isMobile: PropTypes.bool,
-  touchEndHandler: PropTypes.func,
-  touchMoveHandler: PropTypes.func,
+  selectSquare: PropTypes.func,
+  gameStart: PropTypes.bool,
 };
 
 export default Gameboard;

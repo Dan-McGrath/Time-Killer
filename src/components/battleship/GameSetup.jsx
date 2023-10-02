@@ -75,16 +75,49 @@ const GameSetup = ({ isMobile }) => {
       setShipsPlaced(true);
   };
 
-  // drag and drop mobile functions
+  // onClick mobile functions
 
-  const touchStartHandler = (e) => {
-    e.preventDefault();
-    console.log(e);
+  const selectShip = (e) => {
+    dragged = e.currentTarget;
+    console.log(dragged);
   };
 
-  const touchMoveHandler = () => {};
+  const selectSquare = (e) => {
+    let index = Number(e.currentTarget.id);
+    console.log(index);
+    const squares = document.querySelectorAll(".square");
+    const ships = document.querySelectorAll(".ship");
+    currentPlayer.current.ships.forEach((ele) => {
+      if (dragged.id === ele.name) {
+        if (isHorizontal) {
+          currentPlayer.current.board.addShipLocation(ele, "x", index);
+        }
+        if (isVertical) {
+          currentPlayer.current.board.addShipLocation(ele, "y", index);
+        }
+      }
+    });
 
-  const touchEndHandler = () => {};
+    currentPlayer.current.board.gameboard.forEach((ele) => {
+      if (ele.isOccupied) {
+        squares[ele.index].classList.add("occupied");
+      }
+      if (!ele.isOccupied) {
+        squares[ele.index].classList.remove("occupied");
+      }
+    });
+
+    currentPlayer.current.board.shipLocations.forEach((ele) => {
+      ships.forEach((ship) => {
+        if (ele.ship.name === ship.id) {
+          ship.classList.add("placed");
+        }
+      });
+    });
+
+    currentPlayer.current.ships.every((ele) => ele.placed === true) &&
+      setShipsPlaced(true);
+  };
 
   const orientation = (e) => {
     if (e.target.classList.contains("active")) {
@@ -124,7 +157,7 @@ const GameSetup = ({ isMobile }) => {
         className="ship"
         key={ele.name}
         draggable="true"
-        onTouchStart={touchStartHandler}
+        onClick={selectShip}
         id={ele.name}
       >
         <p>{ele.name}</p>
@@ -231,8 +264,7 @@ const GameSetup = ({ isMobile }) => {
             dragOverHandler={dragOverHandler}
             dropHandler={dropHandler}
             isMobile={isMobile}
-            touchStartHandler={touchStartHandler}
-            touchMoveHandler={touchMoveHandler}
+            gameStart={gameStart}
           />
         </div>
         <div className="ships">{currentPlayersShips}</div>
@@ -293,8 +325,8 @@ const GameSetup = ({ isMobile }) => {
             dragOverHandler={dragOverHandler}
             dropHandler={dropHandler}
             isMobile={isMobile}
-            touchEndHandler={touchEndHandler}
-            touchMoveHandler={touchMoveHandler}
+            selectSquare={selectSquare}
+            gameStart={gameStart}
           />
         </div>
         <div className="ships">{currentPlayersShips}</div>

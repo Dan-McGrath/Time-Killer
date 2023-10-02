@@ -2,11 +2,10 @@ import { useState, useRef } from "react";
 import player from "./factories/player";
 import Gameboard from "./Gameboard";
 import Button from "../Button.jsx";
-import Square from "./Square";
+
 const GameSetup = () => {
   const firstPlayer = player("Player 1");
   const secondPlayer = player("Player 2");
-
   firstPlayer.getBlankBoard();
   secondPlayer.getBlankBoard();
 
@@ -21,7 +20,9 @@ const GameSetup = () => {
   const [winner, setWinner] = useState(false);
   const currentPlayer = useRef(player1);
   const enemyPlayer = useRef(player2);
+
   // drag and drop functions
+
 
   let dragged;
 
@@ -176,6 +177,20 @@ const GameSetup = () => {
     }
   };
 
+  const endGameHandler = () => {
+    setShipsPlaced(false);
+    setPlayer1(firstPlayer);
+    setPlayer2(secondPlayer);
+    setIsVertical(true);
+    setIsHorizontal(false);
+    setGameStart(false);
+    setHasAttacked(false);
+    setMessage("");
+    setWinner(false)
+    currentPlayer.current = firstPlayer;
+    enemyPlayer.current = secondPlayer;
+  };
+
   if (shipsPlaced && !gameStart && !hasAttacked) {
     return (
       <>
@@ -229,7 +244,7 @@ const GameSetup = () => {
             <Gameboard currentPlayer={enemyPlayer.current} />
           </div>
         </div>
-        <div className="message">{message}</div>
+
         <div className="end-turn">
           <Button text="End Turn" clickHandler={endTurn} />
         </div>
@@ -270,6 +285,7 @@ const GameSetup = () => {
             <Gameboard currentPlayer={enemyPlayer.current} />
           </div>
         </div>
+        <div className="message">{message}</div>
         <div className="end-game">
           <Button text="New Game" clickHandler={endGameHandler} />
         </div>

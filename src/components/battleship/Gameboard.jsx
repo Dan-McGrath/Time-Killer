@@ -5,6 +5,9 @@ const Gameboard = ({
   dragOverHandler,
   dropHandler,
   attackHandler,
+  isMobile,
+  touchEndHandler,
+  touchMoveHandler,
 }) => {
   let currentPlayerGameboard = currentPlayer.board.gameboard.map((ele) => (
     <Square
@@ -15,6 +18,9 @@ const Gameboard = ({
       dragOverHandler={dragOverHandler}
       dropHandler={dropHandler}
       attackHandler={attackHandler}
+      isMobile={isMobile}
+      touchEndHandler={touchEndHandler}
+      touchMoveHandler={touchMoveHandler}
     />
   ));
 
@@ -25,6 +31,10 @@ Gameboard.propTypes = {
   currentPlayer: PropTypes.object,
   dragOverHandler: PropTypes.func,
   dropHandler: PropTypes.func,
+  attackHandler: PropTypes.func,
+  isMobile: PropTypes.bool,
+  touchEndHandler: PropTypes.func,
+  touchMoveHandler: PropTypes.func,
 };
 
 export default Gameboard;

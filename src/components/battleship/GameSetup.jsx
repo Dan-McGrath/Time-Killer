@@ -1,9 +1,10 @@
 import { useState, useRef } from "react";
+import PropTypes from "prop-types";
 import player from "./factories/player";
 import Gameboard from "./Gameboard";
 import Button from "../Button.jsx";
 
-const GameSetup = () => {
+const GameSetup = ({ isMobile }) => {
   const firstPlayer = player("Player 1");
   const secondPlayer = player("Player 2");
   firstPlayer.getBlankBoard();
@@ -21,8 +22,7 @@ const GameSetup = () => {
   const currentPlayer = useRef(player1);
   const enemyPlayer = useRef(player2);
 
-  // drag and drop functions
-
+  // drag and drop click functions
   let dragged;
 
   const dragstartHandler = (e) => {
@@ -75,6 +75,14 @@ const GameSetup = () => {
       setShipsPlaced(true);
   };
 
+  // drag and drop mobile functions
+
+  const touchStartHandler = () => {};
+
+  const touchMoveHandler = () => {};
+
+  const touchEndHandler = () => {};
+
   const orientation = (e) => {
     if (e.target.classList.contains("active")) {
       if (e.target.previousSibling) {
@@ -103,19 +111,34 @@ const GameSetup = () => {
       setIsHorizontal(false);
     }
   };
-
-  const currentPlayersShips = currentPlayer.current.ships.map((ele) => (
-    <div
-      className="ship"
-      key={ele.name}
-      draggable="true"
-      onDragStart={dragstartHandler}
-      id={ele.name}
-    >
-      <p>{ele.name}</p>
-      <p>Size: {ele.size}</p>
-    </div>
-  ));
+  let currentPlayersShips;
+  if (isMobile) {
+    currentPlayersShips = currentPlayer.current.ships.map((ele) => (
+      <div
+        className="ship"
+        key={ele.name}
+        draggable="true"
+        onTouchStart={touchStartHandler}
+        id={ele.name}
+      >
+        <p>{ele.name}</p>
+        <p>Size: {ele.size}</p>
+      </div>
+    ));
+  } else {
+    currentPlayersShips = currentPlayer.current.ships.map((ele) => (
+      <div
+        className="ship"
+        key={ele.name}
+        draggable="true"
+        onDragStart={dragstartHandler}
+        id={ele.name}
+      >
+        <p>{ele.name}</p>
+        <p>Size: {ele.size}</p>
+      </div>
+    ));
+  }
 
   const endPlacement = () => {
     const squares = document.querySelectorAll(".square");
@@ -198,6 +221,9 @@ const GameSetup = () => {
             currentPlayer={currentPlayer.current}
             dragOverHandler={dragOverHandler}
             dropHandler={dropHandler}
+            isMobile={isMobile}
+            touchStartHandler={touchStartHandler}
+            touchMoveHandler={touchMoveHandler}
           />
         </div>
         <div className="ships">{currentPlayersShips}</div>
@@ -257,6 +283,9 @@ const GameSetup = () => {
             currentPlayer={currentPlayer.current}
             dragOverHandler={dragOverHandler}
             dropHandler={dropHandler}
+            isMobile={isMobile}
+            touchEndHandler={touchEndHandler}
+            touchMoveHandler={touchMoveHandler}
           />
         </div>
         <div className="ships">{currentPlayersShips}</div>
@@ -291,6 +320,10 @@ const GameSetup = () => {
       </>
     );
   }
+};
+
+GameSetup.propTypes = {
+  isMobile: PropTypes.bool,
 };
 
 export default GameSetup;

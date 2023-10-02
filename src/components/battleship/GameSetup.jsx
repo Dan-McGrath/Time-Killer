@@ -77,7 +77,10 @@ const GameSetup = ({ isMobile }) => {
 
   // drag and drop mobile functions
 
-  const touchStartHandler = () => {};
+  const touchStartHandler = (e) => {
+    e.preventDefault();
+    console.log(e);
+  };
 
   const touchMoveHandler = () => {};
 
@@ -111,6 +114,9 @@ const GameSetup = ({ isMobile }) => {
       setIsHorizontal(false);
     }
   };
+
+  // change func handlers depending on screen size
+
   let currentPlayersShips;
   if (isMobile) {
     currentPlayersShips = currentPlayer.current.ships.map((ele) => (
@@ -199,6 +205,7 @@ const GameSetup = ({ isMobile }) => {
     }
   };
 
+  // Reset State
   const endGameHandler = () => {
     setShipsPlaced(false);
     setPlayer1(firstPlayer);
@@ -212,6 +219,8 @@ const GameSetup = ({ isMobile }) => {
     currentPlayer.current = firstPlayer;
     enemyPlayer.current = secondPlayer;
   };
+
+  // change whats displayed based on State
 
   if (shipsPlaced && !gameStart && !hasAttacked) {
     return (

@@ -38,7 +38,7 @@ Header.propTypes = {
   isMobile: PropTypes.bool,
   navHandler: PropTypes.func,
   clickLinkHandler: PropTypes.func,
-  navIsOpen: PropTypes.func,
+  navIsOpen: PropTypes.bool,
 };
 
 export default Header;

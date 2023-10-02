@@ -59,3 +59,28 @@
 .missed {
     background-color: black;
 }
+
+@media (max-width: 600px) {
+       .battleship-gameboard-player {
+        grid-template-columns: repeat(10, 30px);
+        grid-template-rows: repeat(10, 30px);
+    }
+    
+    .ships {
+        gap: 0.5em;
+        margin: 0.5em auto;
+    
+    }
+    
+    .ship {
+        padding: 0.5em;
+    }
+    
+    .orientation {
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+        margin: 1em auto;
+    }
+}

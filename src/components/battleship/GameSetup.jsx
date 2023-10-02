@@ -16,6 +16,7 @@ const GameSetup = () => {
   const [isVertical, setIsVertical] = useState(true);
   const [isHorizontal, setIsHorizontal] = useState(false);
   const [gameStart, setGameStart] = useState(false);
+  const [hasAttacked, setHasAttacked] = useState(false);
   const currentPlayer = useRef(player1);
   const enemyPlayer = useRef(player2);
 
@@ -140,7 +141,7 @@ const GameSetup = () => {
   };
 
   const endTurn = () => {
-    let squares = document.querySelectorAll(".square");
+    // let squares = document.querySelectorAll(".square");
     if (currentPlayer.current.name === "Player 1") {
       setPlayer1({ ...currentPlayer.current });
       currentPlayer.current = player2;
@@ -150,45 +151,33 @@ const GameSetup = () => {
       currentPlayer.current = player1;
       enemyPlayer.current = player2;
     }
-    enemyPlayer.current.board.gameboard.forEach((ele) => {
-      squares.forEach((square) => {
-        if (ele.index === square.id) {
-          if (ele.isAttacked && ele.isOccupied) {
-            square.classList;
-          }
-        }
-      });
-    });
+    setHasAttacked(false);
+    // enemyPlayer.current.board.gameboard.forEach((ele) => {
+    //   squares.forEach((square) => {
+    //     if (ele.index === square.id) {
+    //       if (ele.isAttacked && ele.isOccupied) {
+    //         square.classList;
+    //       }
+    //     }
+    //   });
+    // });
   };
 
   const attackHandler = (e) => {
     let index = Number(e.target.id);
-    enemyPlayer.current.board.attack(index);
-    if (enemyPlayer.current.name === "Player 1") {
-      setPlayer1({ ...enemyPlayer.current });
-    } else {
-      setPlayer2({ ...enemyPlayer.current });
+    let attack = enemyPlayer.current.board.attack(index);
+    if (attack) {
+      if (enemyPlayer.current.name === "Player 1") {
+        setPlayer1({ ...enemyPlayer.current });
+      } else {
+        setPlayer2({ ...enemyPlayer.current });
+      }
+      setHasAttacked(true);
     }
   };
 
-  return shipsPlaced ? (
-    gameStart ? (
-      <>
-        <div className="battleship-gameboard">
-          <h2>{currentPlayer.current.name}</h2>
-          <h2>Enemy Waters</h2>
-          <div className="battleship-gameboard-enemy">
-            <Gameboard
-              currentPlayer={enemyPlayer.current}
-              attackHandler={attackHandler}
-            />
-          </div>
-        </div>
-        <div className="end-turn">
-          <Button text="End Turn" clickHandler={endTurn} />
-        </div>
-      </>
-    ) : (
+  if (shipsPlaced && !gameStart && !hasAttacked) {
+    return (
       <>
         <div className="battleship-gameboard-player">
           <Gameboard
@@ -214,31 +203,131 @@ const GameSetup = () => {
           <Button text="End Turn" clickHandler={endPlacement} />
         </div>
       </>
-    )
-  ) : (
-    <>
-      <div className="battleship-gameboard-player">
-        <Gameboard
-          currentPlayer={currentPlayer.current}
-          dragOverHandler={dragOverHandler}
-          dropHandler={dropHandler}
-        />
-      </div>
-      <div className="ships">{currentPlayersShips}</div>
-      <div className="orientation">
-        <Button
-          text="Vertical"
-          clickHandler={orientation}
-          className="vertical active"
-        />
-        <Button
-          text="Horizontal"
-          clickHandler={orientation}
-          className="horizontal"
-        />
-      </div>
-    </>
-  );
+    );
+  } else if (shipsPlaced && gameStart && !hasAttacked) {
+    return (
+      <>
+        <div className="battleship-gameboard">
+          <h2>{currentPlayer.current.name}</h2>
+          <h2>Enemy Waters</h2>
+          <div className="battleship-gameboard-enemy">
+            <Gameboard
+              currentPlayer={enemyPlayer.current}
+              attackHandler={attackHandler}
+            />
+          </div>
+        </div>
+      </>
+    );
+  } else if (shipsPlaced && gameStart && hasAttacked) {
+    return (
+      <>
+        <div className="battleship-gameboard">
+          <h2>{currentPlayer.current.name}</h2>
+          <h2>Enemy Waters</h2>
+          <div className="battleship-gameboard-enemy">
+            <Gameboard currentPlayer={enemyPlayer.current} />
+          </div>
+        </div>
+        <div className="end-turn">
+          <Button text="End Turn" clickHandler={endTurn} />
+        </div>
+      </>
+    );
+  } else if (!shipsPlaced && !gameStart && !hasAttacked) {
+    return (
+      <>
+        <div className="battleship-gameboard-player">
+          <Gameboard
+            currentPlayer={currentPlayer.current}
+            dragOverHandler={dragOverHandler}
+            dropHandler={dropHandler}
+          />
+        </div>
+        <div className="ships">{currentPlayersShips}</div>
+        <div className="orientation">
+          <Button
+            text="Vertical"
+            clickHandler={orientation}
+            className="vertical active"
+          />
+          <Button
+            text="Horizontal"
+            clickHandler={orientation}
+            className="horizontal"
+          />
+        </div>
+      </>
+    );
+  }
+  // return shipsPlaced ? (
+  //   gameStart ? (
+  //     <>
+  //       <div className="battleship-gameboard">
+  //         <h2>{currentPlayer.current.name}</h2>
+  //         <h2>Enemy Waters</h2>
+  //         <div className="battleship-gameboard-enemy">
+  //           <Gameboard
+  //             currentPlayer={enemyPlayer.current}
+  //             attackHandler={attackHandler}
+  //           />
+  //         </div>
+  //       </div>
+  //       <div className="end-turn">
+  //         <Button text="End Turn" clickHandler={endTurn} />
+  //       </div>
+  //     </>
+  //   ) : (
+  //     <>
+  //       <div className="battleship-gameboard-player">
+  //         <Gameboard
+  //           currentPlayer={currentPlayer.current}
+  //           dragOverHandler={dragOverHandler}
+  //           dropHandler={dropHandler}
+  //         />
+  //       </div>
+  //       <div className="ships">{currentPlayersShips}</div>
+  //       <div className="orientation">
+  //         <Button
+  //           text="Vertical"
+  //           clickHandler={orientation}
+  //           className="vertical active"
+  //         />
+  //         <Button
+  //           text="Horizontal"
+  //           clickHandler={orientation}
+  //           className="horizontal"
+  //         />
+  //       </div>
+  //       <div className="end-turn">
+  //         <Button text="End Turn" clickHandler={endPlacement} />
+  //       </div>
+  //     </>
+  //   )
+  // ) : (
+  //   <>
+  //     <div className="battleship-gameboard-player">
+  //       <Gameboard
+  //         currentPlayer={currentPlayer.current}
+  //         dragOverHandler={dragOverHandler}
+  //         dropHandler={dropHandler}
+  //       />
+  //     </div>
+  //     <div className="ships">{currentPlayersShips}</div>
+  //     <div className="orientation">
+  //       <Button
+  //         text="Vertical"
+  //         clickHandler={orientation}
+  //         className="vertical active"
+  //       />
+  //       <Button
+  //         text="Horizontal"
+  //         clickHandler={orientation}
+  //         className="horizontal"
+  //       />
+  //     </div>
+  //   </>
+  // );
 };
 
 export default GameSetup;

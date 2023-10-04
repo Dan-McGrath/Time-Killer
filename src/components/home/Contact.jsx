@@ -22,7 +22,7 @@ const Contact = () => {
             id="message"
             cols="70"
             rows="1"
-            placeholder="Please leave feedback or any other games you would like to see!"
+            placeholder="Please leave any feedback or other games you would like to see!"
           ></textarea>
         </div>
 

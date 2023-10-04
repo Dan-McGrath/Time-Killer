@@ -24,7 +24,6 @@ const GameManager = () => {
   const [matches, setMatches] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [bestScore, setBestScore] = useState(0);
-  const [reset, setReset] = useState(false);
 
   const getNewArray = () => {
     let fullArray;
@@ -150,7 +149,9 @@ const GameManager = () => {
         faceDown={faceDown}
         selected={selectHandler}
       />
-      <Button text="Reset" clickHandler={resetHandler} />
+      <div className="player-btns">
+        <Button text="Reset" clickHandler={resetHandler} />
+      </div>
     </>
   ) : (
     <>
@@ -162,8 +163,10 @@ const GameManager = () => {
         handler={getNewArray}
         startHandler={startHandler}
       />
-      <Button text="Get Cards" clickHandler={getNewArray} />
-      <Button text="Start" clickHandler={startHandler} />
+      <div className="player-btns">
+        <Button text="Get Cards" clickHandler={getNewArray} />
+        <Button text="Start" clickHandler={startHandler} />
+      </div>
     </>
   );
 };

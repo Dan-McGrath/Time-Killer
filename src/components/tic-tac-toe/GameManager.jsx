@@ -118,11 +118,11 @@ const GameManager = () => {
     let draw = checkDraw(gameboard);
 
     if (gameResult.current) {
-      setActiveHandler(false);
+      setActiveGame(false);
       return (message.current = `${currentPlayer.current.name} Wins!`);
     }
     if (draw) {
-      setActiveHandler(false);
+      setActiveGame(false);
       return (message.current = "Draw");
     }
     changeCurrentPlayer();
@@ -136,7 +136,9 @@ const GameManager = () => {
         squareClickHandler={clickSquareHandler}
         aiActive={aiActive}
       />
-      <Button text="Reset" clickHandler={resetGameHandler} />
+      <div className="player-btns">
+        <Button text="Reset" clickHandler={resetGameHandler} />
+      </div>
     </>
   ) : (
     <>
@@ -146,7 +148,9 @@ const GameManager = () => {
         aiActive={aiActive}
       />
       <Message message={message.current} />
-      <Button text="Start" clickHandler={startHandler} />
+      <div className="player-btns">
+        <Button text="Start" clickHandler={startHandler} />
+      </div>
     </>
   );
 };

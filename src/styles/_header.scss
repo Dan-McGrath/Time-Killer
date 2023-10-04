@@ -1,12 +1,14 @@
 header {
     display: flex;
     justify-content: space-between;
-    background-color: grey;
-    padding: 1em;    
+    background-color: $color4;
+    padding: 1em;   
+    color: $color2; 
+    font-weight: $fw-bold;
     
     .hamburger {
         text-align: right;
-        font-size: 1.5rem;
+        font-size: $fs-300;
         padding: 1em;
     }
 }
@@ -15,7 +17,7 @@ nav {
 
     ul {
         display: flex;
-        gap: 1em;
+        gap: 2em;
         padding: 1em;
     }
 }

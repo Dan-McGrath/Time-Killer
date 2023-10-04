@@ -3,13 +3,12 @@
     align-items: center;
     justify-items: center;
     justify-content: center;
-    grid-template-columns: 110px 110px 110px;
-    grid-template-rows: repeat(4, 140px);
-    border-radius: 45%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 150px);
+    border-radius: 50%;
     border: 1px solid black;
-    margin: 1em auto;
-
-    background-color: lightgreen;
+    margin: 1em;
+    background-color: $color5;
 }
 
 .player-hand {
@@ -22,27 +21,59 @@
     display: flex;
     grid-column: 2;
     grid-row: 1;
+    
 }
 
 .bj-card {
     display: flex;
     align-items: center;
+    justify-content: center;
     border: 1px solid black;
     border-radius: 5px;
     padding: 1em;
     margin: 0 1em;
-    width: 90px;
+    width: 95px;
     height: 110px;
-    background-color: whitesmoke;
+    background-color: $color2;
+    color: $color1;
+    font-weight: $fw-bold;
 }
 
 .bj-facedown {
     width: 90px;
     height: 110px;
-    background-color: black;
+    background-color: $color3;
     border-radius: 5px;
 }
 
 .player {
     text-align: center;
+    font-weight: $fw-bold;
+}
+
+.player-btns {
+    display: flex;
+    margin: 0 auto;
+    max-width: 500px;
+    button {
+       background-color: $color4; 
+       color: $color2;
+       padding: 0.5em;
+       border-radius: 10px;
+       border: 0;
+       font-weight: $fw-normal;
+       letter-spacing: 1px;
+       font-size: $fs-200;
+    }
+}
+
+.message {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: center;
+    max-width: 200px;
+    font-size: $fs-300;
+    color: $color1;
+    padding: 1em;
+    font-weight: $fw-bold;
 }

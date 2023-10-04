@@ -7,14 +7,12 @@
 .ships {
     display: flex;
     justify-content: space-evenly;
-    
     gap: 1em;
     margin: 1em auto;
-
 }
 
 .ship {
-    border: 1px solid black;
+    border: 1px solid $color4;
     padding: 1em;
 }
 
@@ -27,15 +25,16 @@
 }
 
 .occupied {
-    background-color: blue;
+    background-color: $color4;
 }
 
 .active {
-    background-color: green;
+    background-color: $color2;
+    color: $color1;
 }
 
 .placed {
-    background-color: green;
+    background-color: $color4;
 }
 
 .battleship-gameboard-player {
@@ -52,12 +51,21 @@
     justify-content: center;
 }
 
+h2 {
+    text-align: center;
+    margin: 1em;
+}
+
 .hit {
-    background-color: red;
+    background-color: hsl(0, 82%, 48%);
 }
 
 .missed {
-    background-color: black;
+    background-color: hsl(200, 2%, 25%);
+}
+
+.message {
+    color: $color2
 }
 
 @media (max-width: 600px) {

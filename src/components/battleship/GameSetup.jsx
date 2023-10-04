@@ -286,9 +286,9 @@ const GameSetup = ({ isMobile }) => {
   } else if (shipsPlaced && gameStart && !hasAttacked) {
     return (
       <>
+        <h2>{currentPlayer.current.name}</h2>
+        <h2>Enemy Waters</h2>
         <div className="battleship-gameboard">
-          <h2>{currentPlayer.current.name}</h2>
-          <h2>Enemy Waters</h2>
           <div className="battleship-gameboard-enemy">
             <Gameboard
               currentPlayer={enemyPlayer.current}
@@ -301,14 +301,13 @@ const GameSetup = ({ isMobile }) => {
   } else if (shipsPlaced && gameStart && hasAttacked && !winner) {
     return (
       <>
+        <h2>{currentPlayer.current.name}</h2>
+        <h2>Enemy Waters</h2>
         <div className="battleship-gameboard">
-          <h2>{currentPlayer.current.name}</h2>
-          <h2>Enemy Waters</h2>
           <div className="battleship-gameboard-enemy">
             <Gameboard currentPlayer={enemyPlayer.current} />
           </div>
         </div>
-
         <div className="end-turn">
           <Button text="End Turn" clickHandler={endTurn} />
         </div>
@@ -345,9 +344,9 @@ const GameSetup = ({ isMobile }) => {
   } else if (shipsPlaced && gameStart && hasAttacked && winner) {
     return (
       <>
+        <h2>Current Player: {currentPlayer.current.name}</h2>
+        <h2>Enemy Waters</h2>
         <div className="battleship-gameboard">
-          <h2>{currentPlayer.current.name}</h2>
-          <h2>Enemy Waters</h2>
           <div className="battleship-gameboard-enemy">
             <Gameboard currentPlayer={enemyPlayer.current} />
           </div>

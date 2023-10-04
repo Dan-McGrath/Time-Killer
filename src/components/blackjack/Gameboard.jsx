@@ -6,6 +6,7 @@ const Gameboard = ({
   currentDealerCards,
   faceUp,
   cardsDealt,
+  message,
 }) => {
   let playerHand = currentPlayerCards.map((ele) => (
     <Card key={`${ele.getName()}`} name={ele.getName()} faceUp={true} />
@@ -26,6 +27,7 @@ const Gameboard = ({
         <p className="player">Dealers Hand</p>
         <div className="bj-gameboard">
           <div className="player-hand">{playerHand}</div>
+          <div className="message">{message}</div>
           <div className="dealer-hand">{dealerHand}</div>
         </div>
         <p className="player">Your Hand</p>
@@ -35,6 +37,7 @@ const Gameboard = ({
         <p className="player">Dealers Hand</p>
         <div className="bj-gameboard">
           <div className="player-hand">{playerHand}</div>
+          <div className="message">{message}</div>
           <div className="dealer-hand">
             <Card name={currentDealerCards[0].getName()} faceUp={true} />
             <Card name={currentDealerCards[1].getName()} faceUp={false} />
@@ -48,6 +51,7 @@ const Gameboard = ({
       <p className="player">Dealers Hand</p>
       <div className="bj-gameboard">
         <div className="player-hand">{playerHand}</div>
+        <div className="message">{message}</div>
         <div className="dealer-hand">{dealerHand}</div>
       </div>
       <p className="player">Your Hand</p>
@@ -60,6 +64,7 @@ Gameboard.propTypes = {
   currentDealerCards: PropTypes.array,
   faceUp: PropTypes.bool,
   cardsDealt: PropTypes.bool,
+  message: PropTypes.string
 };
 
 export default Gameboard;

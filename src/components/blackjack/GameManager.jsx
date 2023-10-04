@@ -164,11 +164,13 @@ const GameManager = () => {
           currentDealerCards={dealer.getHand()}
           faceUp={faceUp}
           cardsDealt={cardsDealt}
+          message={message}
         />
-        <div className="message">{message}</div>
 
-        <Button text="Hit" clickHandler={hit} />
-        <Button text="stay" clickHandler={stay} />
+        <div className="player-btns">
+          <Button text="Hit" clickHandler={hit} />
+          <Button text="stay" clickHandler={stay} />
+        </div>
       </>
     ) : (
       <>
@@ -182,9 +184,11 @@ const GameManager = () => {
           currentDealerCards={dealer.getHand()}
           faceUp={faceUp}
           cardsDealt={cardsDealt}
+          message={message}
         />
-        <div className="message">{message}</div>
-        <Button text="Next Round" clickHandler={nextRound} />
+        <div className="player-btns">
+          <Button text="Next Round" clickHandler={nextRound} />
+        </div>
       </>
     )
   ) : (
@@ -194,8 +198,11 @@ const GameManager = () => {
         currentDealerCards={dealer.getHand()}
         faceUp={faceUp}
         cardsDealt={cardsDealt}
+        message={message}
       />
-      <Button text="Deal" clickHandler={dealHands} />
+      <div className="player-btns">
+        <Button text="Deal" clickHandler={dealHands} />
+      </div>
     </>
   );
 };

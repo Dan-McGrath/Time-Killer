@@ -1,0 +1,31 @@
+$color1: hsla(288, 85%, 8%);
+$color2: hsla(174, 95%, 48%);
+$color3: hsla(32, 75%, 78%);
+$color4: hsla(327, 66%, 55%);
+$color5: hsla(344, 84%, 66%);
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&family=Ubuntu+Mono:wght@400;700&display=swap');
+
+
+// Font Stacks
+$font1: 'Roboto Mono', monospace, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'segoe ui', 'helvetica neue', helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+$font2: 'Ubuntu Mono', monospace, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'segoe ui', 'helvetica neue', helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+
+// Font Weight
+$fw-light: 300;
+$fw-normal: 400;
+$fw-semibold: 500;
+$fw-bold: 700;
+
+// Font Size
+$fs-100: 0.55rem;
+$fs-200: 1.1rem;
+$fs-300: 1.3rem;
+$fs-400: 1.5rem;
+$fs-500: 2rem;
+$fs-600: 2.5rem;
+$fs-700: 3rem;
+$fs-800: 4rem;
+
+$box-shadow-1: 0 3px 15px rgba(0,0,0,0.2);
+

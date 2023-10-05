@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Nav from "../nav/Nav";
+import logo from "../../assets/images/logo.svg";
 
 const Header = ({ isMobile, navHandler, clickLinkHandler, navIsOpen }) => {
   return isMobile ? (
@@ -16,7 +17,7 @@ const Header = ({ isMobile, navHandler, clickLinkHandler, navIsOpen }) => {
     ) : (
       <header>
         <div className="logo">
-          <img src="" alt="logo" />
+          <img src={logo} alt="logo" />
         </div>
         <div className="hamburger">
           <div className="open-icon" onClick={navHandler}>
@@ -28,7 +29,7 @@ const Header = ({ isMobile, navHandler, clickLinkHandler, navIsOpen }) => {
     )
   ) : (
     <header>
-      <img src="" alt="logo" />
+      <img src={logo} alt="logo" />
       <Nav />
     </header>
   );

@@ -9,7 +9,8 @@ header {
     .hamburger {
         text-align: right;
         font-size: $fs-300;
-        padding: 1em;
+        padding: 0 1em;
+        margin: 0.5em 0;
     }
 }
 
@@ -26,7 +27,6 @@ nav {
     display: block;
     position: absolute;
     width: 100vw;
-
     top: 0;
     opacity: 92%;
     ul {
@@ -38,8 +38,6 @@ nav {
     }
     li {
         padding: 2em;
-        font-size: 1.3rem;
+        font-size: $fs-200;
     }
-
-
 }

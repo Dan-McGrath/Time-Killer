@@ -77,3 +77,37 @@
     padding: 1em;
     font-weight: $fw-bold;
 }
+
+.scores {
+    text-align: center;
+    margin: 1em;
+}
+
+@media (max-width: 600px) {
+    .bj-gameboard {
+        border-radius: 20%;
+    }
+    
+    .bj-card {
+        padding: 2.6em;
+        font-size: 0.75rem;
+        width: 60px;
+        height: 80px;
+    }
+    
+    .bj-facedown {
+        width: 60px;
+        height: 80px;
+    }
+    
+    .player-btns {
+        button {
+           padding: 0.2em;
+        }
+    }
+    
+    .message {
+        font-size: $fs-200;
+
+    }
+}

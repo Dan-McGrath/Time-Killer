@@ -19,6 +19,19 @@ body {
     
 }
 
+.sr-only {
+	border: 0;
+	clip: rect(0, 0, 0, 0); 
+	clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	white-space: nowrap;
+}
+
 .hero {
     margin: 1em auto;
     padding: 1em;
@@ -140,4 +153,66 @@ form {
     padding: 2em;
     border-radius: 20px;
     background-color: $color1;
+}
+
+
+@media (max-width: 600px) {
+    .title {
+        text-align: center;
+        margin: 1em auto;  
+        h1 {
+           font-size: $fs-300;
+           font-weight: $fw-bold; 
+        }    
+        p {
+            font-size: $fs-200;
+        } 
+    }
+
+    .hero {
+        margin: 1em auto;
+        padding: 0.5em;
+        .game-selections {
+            display: flex;
+            flex-direction: column;
+            padding: 3em;
+        }
+    }
+     
+    form {
+        display: flex;
+        flex-direction: column;
+        .form-name {
+            display: flex;
+            align-items: center;
+        }
+        .form-email {
+            display: flex;
+            align-items: center;
+
+        }
+        .form-message {
+            display: flex;
+            align-items: center;
+        }
+        
+        label {
+            font-size: $fs-200;
+        }
+
+        input,
+        textarea {     
+            font-size: 0.85rem;   
+        }
+
+        .btn-submit {
+            padding: 0.5em 0;
+        }
+    }
+    
+    .game {
+        font-size: $fs-300;
+        text-align: center;
+        padding: 2em;
+    }
 }

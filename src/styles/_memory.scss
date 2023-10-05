@@ -15,3 +15,31 @@
 .faceup {
     text-align: center;
 }
+
+@media (max-width: 600px) {
+
+    .card {
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    }
+
+    .facedown {
+        width: 50px;
+        height: 50px;
+        background-color: $color2;
+        margin: 1em;
+    }
+    
+    .memory-gameboard {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+    }
+
+    .score {
+        text-align: center;
+        margin: 1em;
+    }
+}

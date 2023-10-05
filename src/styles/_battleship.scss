@@ -68,27 +68,34 @@ h2 {
     color: $color2
 }
 
+.end-turn {
+    button {
+        background-color: $color1;
+        color: $color5;
+        border: 1px solid $color2; 
+    }
+    
+}
+
 @media (max-width: 600px) {
        .battleship-gameboard-player {
         grid-template-columns: repeat(10, 30px);
         grid-template-rows: repeat(10, 30px);
     }
     
+    .battleship-gameboard-enemy {
+        grid-template-columns: repeat(10, 30px);
+        grid-template-rows: repeat(10, 30px);
+    }
+
     .ships {
+        flex-wrap: wrap;
         gap: 0.5em;
-        margin: 0.5em auto;
-    
+        margin: 1em auto;
     }
     
     .ship {
         padding: 0.5em;
     }
     
-    .orientation {
-        width: 200px;
-        display: flex;
-        justify-content: center;
-        gap: 1em;
-        margin: 1em auto;
-    }
 }

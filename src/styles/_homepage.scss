@@ -153,8 +153,17 @@ form {
     padding: 2em;
     border-radius: 20px;
     background-color: $color1;
+    width: 400px;
+    text-align: center;
 }
 
+
+@media (max-width: 1000px) {
+    .game {
+        width: 200px;
+        font-size: $fs-200;
+    }
+}
 
 @media (max-width: 600px) {
     .title {
@@ -175,6 +184,7 @@ form {
         .game-selections {
             display: flex;
             flex-direction: column;
+            align-items: center;
             padding: 3em;
         }
     }
@@ -182,6 +192,7 @@ form {
     form {
         display: flex;
         flex-direction: column;
+        
         .form-name {
             display: flex;
             align-items: center;
